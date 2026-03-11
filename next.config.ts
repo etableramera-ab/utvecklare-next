@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     return [
       { source: '/loner', destination: '/lonestatistik', permanent: true },
       { source: '/om', destination: '/om-oss', permanent: true },
-      { source: '/lonestatistik', destination: '/lonestatistik', permanent: false },
     ]
   },
   images: {
