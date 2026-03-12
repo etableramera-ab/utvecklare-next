@@ -74,7 +74,7 @@ const pricing = [
     desc: "Perfekt för att komma igång",
     features: ["1 aktiv jobbannons", "Grundläggande företagsprofil", "E-postnotifikationer", "30 dagars publicering"],
     cta: "Kom igång gratis",
-    href: "/foretag/registrera",
+    planId: "starter",
     featured: false,
   },
   {
@@ -84,7 +84,7 @@ const pricing = [
     desc: "För företag som rekryterar aktivt",
     features: ["5 aktiva jobbannonser", "Featured-placering i listan", "Employer branding-sida", "Kandidatfiltrering", "Prioriterad support", "Analytics & statistik"],
     cta: "Välj Professional",
-    href: "/foretag/priser",
+    planId: "professional",
     featured: true,
   },
   {
@@ -93,7 +93,7 @@ const pricing = [
     desc: "Skräddarsydda lösningar",
     features: ["Obegränsade jobbannonser", "Dedikerad account manager", "API-integration med ert ATS", "Custom employer branding", "Event-sponsring", "Kandidatsökning i databas"],
     cta: "Boka demo",
-    href: "#kontakt",
+    planId: null,
     featured: false,
   },
 ];
@@ -270,7 +270,13 @@ const CompanyPage = () => {
                   variant={p.featured ? "default" : "outline"}
                   asChild
                 >
-                  <Link href={p.href}>{p.cta}</Link>
+                  <Link href={
+                    p.planId === null
+                      ? "#kontakt"
+                      : user
+                        ? `/checkout?plan=${p.planId}`
+                        : "/foretag/registrera"
+                  }>{p.cta}</Link>
                 </Button>
               </div>
             ))}
