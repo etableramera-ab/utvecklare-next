@@ -2,6 +2,8 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { MOCK_ARTICLES } from "@/data/articlesData";
+import { ARTICLE_CONTENT } from "@/data/articleContent";
 
 export interface ArticleRow {
   id: string;
@@ -39,6 +41,8 @@ const CATEGORY_MAP: Record<string, string> = {
   "karriar-lon": "Karriär & Lön",
   "ai-nyheter": "AI-nyheter",
   "nyborjarguider": "Nybörjarguider",
+  "karriar": "Karriär",
+  "verktyg": "Verktyg & Guider",
 };
 
 const SLUG_TO_CATEGORY: Record<string, string> = {
@@ -49,6 +53,8 @@ const SLUG_TO_CATEGORY: Record<string, string> = {
   "karriar-lon": "Karriär & Lön",
   "ai-nyheter": "AI-nyheter",
   "nyborjarguider": "Nybörjarguider",
+  "karriar": "Karriär",
+  "verktyg": "Verktyg & Guider",
 };
 
 export const ARTICLE_CATEGORIES = Object.entries(CATEGORY_MAP).map(([slug, label]) => ({ slug, label }));
@@ -157,21 +163,25 @@ export function useArticleDetail(slug: string | undefined) {
       .eq("is_published", true)
       .maybeSingle()
       .then(({ data }) => {
-        setArticle(data as ArticleRow | null);
+        if (data) {
+          setArticle(data as ArticleRow | null);
+        } else {
+          // Fall back to mock data
+          const mock = MOCK_ARTICLES.find(a => a.slug === slug);
+          if (mock) {
+            const content = ARTICLE_CONTENT[slug] || "";
+            setArticle({ ...mock, content, meta_title: mock.title, meta_description: mock.excerpt, hero_image_alt: mock.title, author_slug: null, author_linkedin_url: null, author_github_url: null, updated_at: null } as ArticleRow);
+          } else {
+            setArticle(null);
+          }
+        }
         setLoading(false);
-        // Track view
+        // Track view (only for real Supabase articles)
         if (data) {
           const key = `article_viewed_${data.id}`;
           if (!sessionStorage.getItem(key)) {
             sessionStorage.setItem(key, "1");
             supabase.rpc("increment_article_views" as any, { article_id: data.id }).then(() => {});
-          }
-          // Track reading history
-          if (user) {
-            supabase
-              .from("reading_history")
-              .upsert({ user_id: user.id, article_id: data.id, read_at: new Date().toISOString(), scroll_percentage: 0 }, { onConflict: "user_id,article_id" })
-              .then(() => {});
           }
         }
       });
