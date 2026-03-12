@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 /* ─── Schemas ─── */
 const step1Schema = z.object({
@@ -48,6 +49,7 @@ const STEPS = ["Konto", "Företagsprofil", "Välj paket", "Bekräftelse"];
 const CompanyRegisterPage = () => {
   const searchParams = useSearchParams();
   const { toast } = useToast();
+  const { user: loggedInUser } = useAuth();
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -104,16 +106,21 @@ const CompanyRegisterPage = () => {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      // 1. Sign up
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email: s1.email,
-        password: s1.password,
-        options: { emailRedirectTo: window.location.origin },
-      });
-      if (authError) throw authError;
-      if (!authData.user) throw new Error("Registrering misslyckades");
-
-      const userId = authData.user.id;
+      // 1. Get or create user
+      let userId: string;
+      if (loggedInUser) {
+        // Already logged in — reuse existing account
+        userId = loggedInUser.id;
+      } else {
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: s1.email,
+          password: s1.password,
+          options: { emailRedirectTo: window.location.origin },
+        });
+        if (authError) throw authError;
+        if (!authData.user) throw new Error("Registrering misslyckades");
+        userId = authData.user.id;
+      }
 
       // 2. Upload logo if provided
       let logoUrl: string | null = null;
@@ -335,7 +342,7 @@ const CompanyRegisterPage = () => {
                 <div className="space-y-4 text-sm">
                   <div className="flex justify-between py-2 border-b border-border">
                     <span className="text-muted-foreground">E-post</span>
-                    <span className="text-foreground font-medium">{s1.email}</span>
+                    <span className="text-foreground font-medium">{loggedInUser?.email ?? s1.email}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-border">
                     <span className="text-muted-foreground">Företag</span>
