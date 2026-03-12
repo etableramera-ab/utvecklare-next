@@ -14,7 +14,6 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import VoteButtons from "@/components/community/VoteButtons";
 import ForumCommentItem from "@/components/community/ForumCommentItem";
-import AdBanner from "@/components/ads/AdBanner";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
 import { useForumPost, useForumComments, useForumVote, FORUM_CATEGORIES, type ForumPostRow } from "@/hooks/useCommunity";
 import { useAuth } from "@/hooks/useAuth";

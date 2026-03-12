@@ -12,7 +12,6 @@ import JobFilterPanel from "@/components/jobs/JobFilterPanel";
 import JobCard from "@/components/jobs/JobCard";
 import JobAlertModal from "@/components/jobs/JobAlertModal";
 import JobSEOHead from "@/components/jobs/JobSEOHead";
-import AdBanner from "@/components/ads/AdBanner";
 import { useJobFilters } from "@/hooks/useJobFilters";
 import { POPULAR_SEARCHES, SORT_OPTIONS, CITIES } from "@/data/jobsData";
 import { Job } from "@/types/jobs";
@@ -297,7 +296,12 @@ const JobsPage = () => {
                   <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4" : "flex flex-col gap-3"}>
                     {jobsWithAds.map((item, idx) => {
                       if (item === "ad") {
-                        return <AdBanner key={`ad-${idx}`} placement="in-feed" page="jobs" className={view === "grid" ? "md:col-span-2" : ""} />;
+                        return (
+                          <Link key={`ad-${idx}`} href="/foretag" className={`block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group${view === "grid" ? " md:col-span-2" : ""}`}>
+                            <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
+                            <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+                          </Link>
+                        );
                       }
                       return item.is_external ? (
                         <a key={item.id} href={item.apply_url} target="_blank" rel="noopener noreferrer">

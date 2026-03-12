@@ -8,7 +8,6 @@ import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EventRegistrationModal from "@/components/events/EventRegistrationModal";
-import AdBanner from "@/components/ads/AdBanner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";

@@ -8,7 +8,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleCardSupabase from "@/components/articles/ArticleCardSupabase";
 import NewsletterInlineCTA from "@/components/articles/NewsletterInlineCTA";
-import AdBanner from "@/components/ads/AdBanner";
 import ArticleSEO from "@/components/articles/ArticleSEO";
 import { useArticles, usePopularArticles, useAllTags, ARTICLE_CATEGORIES, getCategoryLabel, getCategorySlug } from "@/hooks/useArticles";
 import knowledgeHeroBg from "@/assets/knowledge-hero-bg.jpg";
@@ -46,7 +45,10 @@ const KnowledgeHubPage = () => {
       if (i === 5) items.push(<NewsletterInlineCTA key="nl-cta" source="kunskapshubb-inline" />);
       if (i === 11) items.push(
         <div key="ad-infeed" className="col-span-full">
-          <AdBanner placement="in-feed" page="articles" />
+          <Link href="/foretag" className="block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+            <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
+            <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+          </Link>
         </div>
       );
     });

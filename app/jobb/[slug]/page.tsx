@@ -13,7 +13,6 @@ import JobCard from "@/components/jobs/JobCard";
 import JobDetailSEO from "@/components/jobs/JobDetailSEO";
 import JobShareDropdown from "@/components/jobs/JobShareDropdown";
 import JobApplicationForm from "@/components/jobs/JobApplicationForm";
-import AdBanner from "@/components/ads/AdBanner";
 import { useJobDetail } from "@/hooks/useJobDetail";
 import jobsHeroBg from "@/assets/jobs-hero-bg.jpg";
 

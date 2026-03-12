@@ -10,8 +10,8 @@ import UpcomingEvents from "@/components/UpcomingEvents";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CompanyCTA from "@/components/CompanyCTA";
 import Footer from "@/components/Footer";
-import AdBanner from "@/components/ads/AdBanner";
 import SEOHead from "@/components/SEOHead";
+import Link from "next/link";
 
 const homepageJsonLd = [
   {
@@ -54,8 +54,11 @@ const Index = () => (
     <main>
       <HeroSection />
       <FeaturedJobs />
-      <div className="container mx-auto px-4 py-6">
-        <AdBanner placement="between-sections" page="home" />
+      <div className="container mx-auto px-4 py-4">
+        <Link href="/foretag" className="block p-4 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+          <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
+          <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+        </Link>
       </div>
       <KnowledgeHub />
       <ToolsPreview />
@@ -63,9 +66,6 @@ const Index = () => (
       <CommunitySection />
       <NewsletterCTA />
       <CompanyCTA />
-      <div className="container mx-auto px-4 py-6">
-        <AdBanner placement="leaderboard" page="home" />
-      </div>
     </main>
     <Footer />
   </div>

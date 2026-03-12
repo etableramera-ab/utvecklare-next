@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ChevronRight, Loader2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AdBanner from "@/components/ads/AdBanner";
 import SalaryHero from "@/components/salary/SalaryHero";
 import SalaryHighlights from "@/components/salary/SalaryHighlights";
 import SalaryByRoleChart from "@/components/salary/SalaryByRoleChart";
@@ -49,7 +48,10 @@ const SalaryPage = () => {
             <SalaryByRoleChart data={currentYear} />
             <SalaryByCityChart data={currentYear} />
             <div className="py-4">
-              <AdBanner placement="between-sections" page="salary" />
+              <Link href="/foretag" className="block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+                <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+              </Link>
             </div>
             <SalaryTrendChart data={data || []} />
             <SalaryFactors />

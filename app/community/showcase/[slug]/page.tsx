@@ -14,7 +14,6 @@ import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
-import AdBanner from "@/components/ads/AdBanner";
 
 interface ShowcaseProject {
   id: string;

@@ -8,7 +8,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import EventListCard from "@/components/events/EventListCard";
 import EventCalendarView from "@/components/events/EventCalendarView";
-import AdBanner from "@/components/ads/AdBanner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";

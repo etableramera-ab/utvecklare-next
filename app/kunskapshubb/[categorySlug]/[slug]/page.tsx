@@ -14,7 +14,6 @@ import CommentSection from "@/components/articles/CommentSection";
 import NewsletterInlineCTA from "@/components/articles/NewsletterInlineCTA";
 import ReadingProgress from "@/components/articles/ReadingProgress";
 import RelatedJobs from "@/components/articles/RelatedJobs";
-import AdBanner from "@/components/ads/AdBanner";
 import RelatedTools from "@/components/articles/RelatedTools";
 import ArticleSEO from "@/components/articles/ArticleSEO";
 import { useArticleDetail, useArticleLike, useBookmark, getCategorySlug } from "@/hooks/useArticles";
@@ -287,9 +286,12 @@ const ArticleDetailPage = () => {
               </div>
             </div>
 
-            {/* Article-bottom ad */}
+            {/* Article-bottom CTA */}
             <div className="mb-10">
-              <AdBanner placement="article-bottom" page="article-detail" category={article.category} />
+              <Link href="/foretag" className="block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+                <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+              </Link>
             </div>
 
             {/* Newsletter */}

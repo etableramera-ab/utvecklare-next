@@ -29,7 +29,11 @@ const ArticleCardSupabase = ({ article, featured }: Props) => {
       <Link href={link} className="group block">
         <article className="rounded-lg bg-card border border-border card-hover overflow-hidden grid md:grid-cols-5 gap-0">
           <div className="md:col-span-3 aspect-video md:aspect-auto md:min-h-[300px] overflow-hidden">
-            <img src={article.hero_image_url || ""} alt={article.hero_image_alt || article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            {article.hero_image_url ? (
+              <img src={article.hero_image_url} alt={article.hero_image_alt || article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            ) : (
+              <div className="w-full h-full gradient-bg opacity-60" />
+            )}
           </div>
           <div className="md:col-span-2 p-6 lg:p-8 flex flex-col justify-center">
             <span className="self-start px-2.5 py-1 text-xs font-medium rounded-full gradient-bg text-primary-foreground mb-3">
@@ -59,7 +63,11 @@ const ArticleCardSupabase = ({ article, featured }: Props) => {
     <Link href={link} className="group block">
       <article className="rounded-lg bg-card border border-border card-hover overflow-hidden flex flex-col h-full">
         <div className="relative aspect-video overflow-hidden">
-          <img src={article.hero_image_url || ""} alt={article.hero_image_alt || article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          {article.hero_image_url ? (
+            <img src={article.hero_image_url} alt={article.hero_image_alt || article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+          ) : (
+            <div className="w-full h-full gradient-bg opacity-60" />
+          )}
           <span className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-full bg-background/70 backdrop-blur-sm text-foreground">
             {article.category}
           </span>
