@@ -55,7 +55,7 @@ export const MOCK_ARTICLES: Article[] = [
     excerpt: "Steg-för-steg-guide för att komma igång med ML. Från grunderna till din första modell.",
     content: "", category: "Nybörjarguider", category_slug: "nyborjarguider",
     tags: ["Python", "TensorFlow", "Karriär"],
-    hero_image_url: "https://images.unsplash.com/photo-1515879218367-8466d910auj7?w=800&h=450&fit=crop",
+    hero_image_url: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=450&fit=crop",
     author_name: "Marcus Berg", author_avatar_url: null, author_bio: "AI-utbildare och konsult",
     reading_time_minutes: 15, is_featured: false, is_published: true,
     published_at: "2026-01-22", views_count: 5200, likes_count: 420,

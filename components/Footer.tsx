@@ -43,9 +43,9 @@ const Footer = () => {
             </p>
             <div className="flex gap-3 mt-4">
               {[
-                { icon: Linkedin, href: "#", label: "LinkedIn" },
-                { icon: Github, href: "#", label: "GitHub" },
-                { icon: Twitter, href: "#", label: "X" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/utvecklare-ai", label: "LinkedIn" },
+                { icon: Github, href: "https://github.com/utvecklare-ai", label: "GitHub" },
+                { icon: Twitter, href: "https://x.com/utvecklareai", label: "X" },
               ].map((s) => (
                 <a key={s.label} href={s.href} aria-label={s.label} className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
                   <s.icon className="w-4 h-4" />

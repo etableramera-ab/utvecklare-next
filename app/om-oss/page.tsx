@@ -112,10 +112,10 @@ const AboutPage = () => (
                 Fullstack-utvecklare och entreprenör med passion för AI och den svenska tech-scenen. Bygger utvecklare.ai för att stärka Sveriges AI-community.
               </p>
               <div className="flex gap-3 mt-3 justify-center sm:justify-start">
-                <a href="#" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
+                <a href="https://www.linkedin.com/in/kimstockblom" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
                   <Linkedin className="w-4 h-4" />
                 </a>
-                <a href="#" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
+                <a href="https://github.com/kimstockblom" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
                   <Github className="w-4 h-4" />
                 </a>
               </div>
