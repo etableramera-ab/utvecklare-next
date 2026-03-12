@@ -165,9 +165,9 @@ const ToolsPage = () => {
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
               <Award className="w-5 h-5 text-warning" /> Editor's Choice
             </h2>
-            <div className="flex gap-4 overflow-x-auto pb-2">
+            <div className="flex gap-4 overflow-x-auto pb-2 items-stretch">
               {editorsChoiceTools.map(tool => (
-                <div key={tool.id} className="min-w-[280px] max-w-[320px] flex-shrink-0">
+                <div key={tool.id} className="min-w-[280px] max-w-[320px] flex-shrink-0 flex">
                   <ToolCard tool={tool} showCompare onToggleCompare={toggleCompare} isCompareSelected={compareIds.has(tool.id)} />
                 </div>
               ))}

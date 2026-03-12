@@ -156,14 +156,14 @@ const JobDetailPage = () => {
             <div className="mb-10">
               <h2 className="text-xl font-bold text-foreground mb-4">Om tjänsten</h2>
               <div className="text-muted-foreground leading-relaxed space-y-4">
-                {job.full_description.split("\n\n").map((para, i) => {
+                {job.full_description.split("").map((para, i) => {
                   if (para.startsWith("## ")) {
                     return <h3 key={i} className="text-lg font-semibold text-foreground mt-6 mb-3">{para.replace("## ", "")}</h3>;
                   }
                   if (para.startsWith("- ")) {
                     return (
                       <ul key={i} className="space-y-2 ml-1">
-                        {para.split("\n").map((line, li) => (
+                        {para.split("").map((line, li) => (
                           <li key={li} className="flex items-start gap-2">
                             <span className="w-1.5 h-1.5 rounded-full gradient-bg mt-2 shrink-0" />
                             <span>{line.replace("- ", "")}</span>
@@ -283,13 +283,13 @@ const JobDetailPage = () => {
               </div>
 
               {/* Ad */}
-              <Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>\n
-                <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />\n
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />\n
-                <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">\n
-                  <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>\n
-                  <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>\n
-                </div>\n
+              <Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>
+                <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
+                <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">
+                  <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>
+                  <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
+                </div>
               </Link>
 
               {/* Related jobs sidebar */}

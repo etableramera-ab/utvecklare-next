@@ -29,7 +29,7 @@ const ToolCard = ({ tool, showCompare, isCompareSelected, onToggleCompare }: Too
   const categorySlug = toCategorySlug(tool.category);
 
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col h-full">
       {/* Compare checkbox */}
       {showCompare && (
         <button

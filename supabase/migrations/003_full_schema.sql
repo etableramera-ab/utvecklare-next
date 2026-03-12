@@ -1044,3 +1044,12 @@ WHERE title ILIKE '%nybörjar%' AND title ILIKE '%Python%'
 UPDATE articles
 SET hero_image_url = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'
 WHERE hero_image_url IS NULL OR hero_image_url = '';
+
+-- -----------------------------------------------------------------------
+-- Migration: Add moderation_status to forum_posts and showcase_projects
+-- -----------------------------------------------------------------------
+ALTER TABLE forum_posts
+  ADD COLUMN IF NOT EXISTS moderation_status text NOT NULL DEFAULT 'approved';
+
+ALTER TABLE showcase_projects
+  ADD COLUMN IF NOT EXISTS moderation_status text NOT NULL DEFAULT 'approved';
