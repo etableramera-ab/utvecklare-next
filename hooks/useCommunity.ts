@@ -92,7 +92,8 @@ export function useForumPosts(category: ForumCategory, sort: SortMode, search: s
     let query = supabase
       .from("forum_posts")
       .select("*, profiles:user_id(full_name, avatar_url)", { count: "exact" })
-      .eq("is_published", true);
+      .eq("is_published", true)
+      .eq("moderation_status", "approved");
 
     if (category !== "alla") query = query.eq("category", category);
 

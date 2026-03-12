@@ -17,6 +17,8 @@ import { supabase } from "@/lib/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { FORUM_CATEGORIES, generateSlug } from "@/hooks/useCommunity";
 
+const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
+
 const CreatePostPage = () => {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
@@ -52,6 +54,7 @@ const CreatePostPage = () => {
     setSubmitting(true);
     const slug = generateSlug(title);
 
+    const isAdmin = user.id === ADMIN_USER_ID;
     const { error } = await supabase.from("forum_posts").insert({
       title: title.trim(),
       slug,
@@ -59,6 +62,7 @@ const CreatePostPage = () => {
       category,
       tags,
       user_id: user.id,
+      moderation_status: isAdmin ? "approved" : "pending",
     });
 
     if (error) {
@@ -67,8 +71,13 @@ const CreatePostPage = () => {
     } else {
       // Update reputation
       await supabase.rpc("upsert_reputation", { p_user_id: user.id });
-      toast({ title: "Ditt inlägg har publicerats! 🎉" });
-      router.push(`/community/${slug}`);
+      if (isAdmin) {
+        toast({ title: "Inlägg publicerat! 🎉" });
+        router.push(`/community/${slug}`);
+      } else {
+        toast({ title: "Inlägg skickat för granskning", description: "Det publiceras när en admin har godkänt det." });
+        router.push("/community");
+      }
     }
     setSubmitting(false);
   };

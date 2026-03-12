@@ -70,6 +70,7 @@ const CommunityPage = () => {
       .from("showcase_projects")
       .select("*, profiles:user_id(full_name, avatar_url)")
       .eq("is_published", true)
+      .eq("moderation_status", "approved")
       .order("upvotes", { ascending: false })
       .limit(20)
       .then(({ data }) => {
@@ -120,11 +121,9 @@ const CommunityPage = () => {
             {user ? (
               <>
                 <Button className="gradient-bg text-primary-foreground hover:opacity-90" asChild>
-                  <Link href="/community/nytt"><Plus className="w-4 h-4 mr-1" /> Nytt inlägg</Link>
+                  <Link href="/community/nytt"><Plus className="w-4 h-4 mr-1" /> Ny diskussion</Link>
                 </Button>
                 <Button variant="outline" className="border-border" asChild>
-                  <Link href="/community/showcase/nytt">Dela projekt</Link>
-                </Button>
               </>
             ) : (
               <>

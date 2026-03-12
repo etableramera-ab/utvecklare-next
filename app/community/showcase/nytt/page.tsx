@@ -19,6 +19,8 @@ import { generateSlug } from "@/hooks/useCommunity";
 const CATEGORIES = ["Webbapp", "CLI-verktyg", "Modell/Forskning", "Dataset", "Bibliotek/Paket", "Annat"];
 const TECH_SUGGESTIONS = ["Python", "PyTorch", "TensorFlow", "React", "Next.js", "TypeScript", "LangChain", "Hugging Face", "FastAPI", "Docker", "Kubernetes", "AWS", "OpenCV", "Stable Diffusion", "YOLO"];
 
+const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
+
 const CreateShowcasePage = () => {
   const router = useRouter();
   const { user } = useAuth();
@@ -97,6 +99,7 @@ const CreateShowcasePage = () => {
       if (url) screenshotUrls.push(url);
     }
 
+    const isAdmin = user.id === ADMIN_USER_ID;
     const { error } = await supabase.from("showcase_projects").insert({
       user_id: user.id,
       title: title.trim(),
@@ -109,14 +112,20 @@ const CreateShowcasePage = () => {
       github_url: githubUrl.trim() || null,
       tech_stack: techStack,
       category: category || null,
+      moderation_status: isAdmin ? "approved" : "pending",
     });
 
     if (error) {
       toast({ title: "Kunde inte publicera", description: error.message, variant: "destructive" });
     } else {
       await supabase.rpc("upsert_reputation", { p_user_id: user.id });
-      toast({ title: "Projekt publicerat! 🎉" });
-      router.push(`/community/showcase/${slug}`);
+      if (isAdmin) {
+        toast({ title: "Projekt publicerat! 🎉" });
+        router.push(`/community/showcase/${slug}`);
+      } else {
+        toast({ title: "Projekt skickat för granskning", description: "Det publiceras när en admin har godkänt det." });
+        router.push("/community?tab=showcase");
+      }
     }
     setSubmitting(false);
   };
