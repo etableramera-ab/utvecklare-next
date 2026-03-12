@@ -48,9 +48,13 @@ const SalaryPage = () => {
             <SalaryByRoleChart data={currentYear} />
             <SalaryByCityChart data={currentYear} />
             <div className="py-4">
-              <Link href="/foretag" className="block p-5 rounded-lg border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all text-center group">
-                <p className="text-sm font-semibold text-foreground">Annonsera på utvecklare.ai</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
+<Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group h-[200px]">
+                <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                <div className="absolute inset-0 flex flex-col justify-center px-8">
+                  <p className="text-lg font-bold text-white">Annonsera på utvecklare.ai</p>
+                  <p className="text-sm text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
+                </div>
               </Link>
             </div>
             <SalaryTrendChart data={data || []} />

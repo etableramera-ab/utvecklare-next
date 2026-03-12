@@ -224,10 +224,14 @@ const JobsPage = () => {
                   </div>
                 </div>
 
-                <Link href="/foretag" className="block p-4 rounded-lg border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all text-center group">
-                  <p className="text-xs font-semibold text-foreground">Annonsera här</p>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
-                </Link>
+<Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>
+              <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
+              <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">
+                <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>
+                <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
+              </div>
+            </Link>
               </div>
             </div>
 
@@ -293,14 +297,7 @@ const JobsPage = () => {
                 <>
                   <div className={view === "grid" ? "grid grid-cols-1 md:grid-cols-2 gap-4" : "flex flex-col gap-3"}>
                     {jobsWithAds.map((item, idx) => {
-                      if (item === "ad") {
-                        return (
-                          <Link key={`ad-${idx}`} href="/foretag" className={`block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group${view === "grid" ? " md:col-span-2" : ""}`}>
-                            <p className="text-sm font-semibold text-foreground">Annonsera på utvecklare.ai</p>
-                            <p className="text-xs text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
-                          </Link>
-                        );
-                      }
+                      if (item === "ad") return null;
                       return item.is_external ? (
                         <a key={item.id} href={item.apply_url} target="_blank" rel="noopener noreferrer">
                           <JobCard job={item} view={view} />

@@ -54,12 +54,7 @@ const Index = () => (
     <main>
       <HeroSection />
       <FeaturedJobs />
-      <div className="container mx-auto px-4 py-4">
-        <Link href="/foretag" className="block p-4 rounded-lg border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all text-center group">
-          <p className="text-sm font-semibold text-foreground">Annonsera på utvecklare.ai</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
-        </Link>
-      </div>
+
       <KnowledgeHub />
       <ToolsPreview />
       <UpcomingEvents />
