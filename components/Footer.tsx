@@ -110,7 +110,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          © 2026 KMNO AB. Alla rättigheter förbehållna.
+          © 2026 Etablera Mera AB. Alla rättigheter förbehållna.
         </div>
       </div>
     </footer>

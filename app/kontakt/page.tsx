@@ -172,7 +172,7 @@ const ContactPage = () => {
                   { icon: Mail, label: "Generell", value: "hej@utvecklare.ai" },
                   { icon: Mail, label: "Annonsering", value: "annons@utvecklare.ai" },
                   { icon: Mail, label: "Integritet", value: "integritet@utvecklare.ai" },
-                  { icon: MapPin, label: "Adress", value: "KMNO AB, Stockholm" },
+                  { icon: MapPin, label: "Adress", value: "Etablera Mera AB, Stockholm" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
                     <item.icon className="w-4 h-4 text-primary mt-0.5 shrink-0" />
@@ -210,7 +210,7 @@ const ContactPage = () => {
             </div>
 
             <div className="text-xs text-muted-foreground">
-              <p className="font-medium text-foreground text-sm mb-1">KMNO AB</p>
+              <p className="font-medium text-foreground text-sm mb-1">Etablera Mera AB</p>
               <p>Organisationsnummer: XXX-XXXX</p>
               <p>Stockholm, Sverige</p>
             </div>
