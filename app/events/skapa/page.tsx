@@ -19,6 +19,8 @@ import { generateEventSlug, EVENT_TYPE_LABELS } from "@/hooks/useEvents";
 const CITIES = ["Stockholm", "Göteborg", "Malmö", "Uppsala", "Linköping", "Annan"];
 const TAG_SUGGESTIONS = ["AI", "ML", "NLP", "LLM", "RAG", "MLOps", "Datorseende", "Python", "PyTorch", "Nybörjare"];
 
+const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
+
 const CreateEventPage = () => {
   const router = useRouter();
   const { user } = useAuth();
@@ -53,7 +55,7 @@ const CreateEventPage = () => {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerUrl, setOrganizerUrl] = useState("");
 
-  if (!user) { router.push("/logga-in"); return null; }
+  if (!user || user.id !== ADMIN_USER_ID) { router.push("/events"); return null; }
 
   const addTag = (tag: string) => {
     const t = tag.trim();

@@ -23,7 +23,9 @@ type ViewMode = "list" | "calendar";
 
 const CITIES = ["Stockholm", "Göteborg", "Malmö", "Uppsala", "Linköping"];
 
-const EventsPage = () => {
+const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
+
+
   const { events, loading } = useEvents();
   const { user } = useAuth();
   const searchParams = useSearchParams();
@@ -104,7 +106,7 @@ const EventsPage = () => {
             <span className="font-medium text-foreground">{uniqueCities}</span> städer ·
             <span className="font-medium text-foreground">{totalAttendees}</span> deltagare
           </div>
-          {user && (
+          {user?.id === ADMIN_USER_ID && (
             <Button variant="outline" className="border-border" asChild>
               <Link href="/events/skapa"><Plus className="w-4 h-4 mr-1" /> Lägg till ditt event</Link>
             </Button>
@@ -256,7 +258,7 @@ const EventsPage = () => {
 
           {/* Sidebar */}
           <aside className="space-y-6 hidden lg:block">
-            {user && (
+            {user?.id === ADMIN_USER_ID && (
               <Button className="w-full gradient-bg text-primary-foreground hover:opacity-90" asChild>
                 <Link href="/events/skapa"><Plus className="w-4 h-4 mr-1" /> Lägg till ditt event</Link>
               </Button>
