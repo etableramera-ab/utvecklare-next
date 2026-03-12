@@ -4,6 +4,40 @@ import SEOHead from "@/components/SEOHead";
 import type { ArticleRow } from "@/hooks/useArticles";
 import { getCategorySlug } from "@/hooks/useArticles";
 
+function extractFaqJsonLd(content: string | null) {
+  if (!content) return null;
+  const lines = content.split("\n");
+  const faqItems: { question: string; answer: string }[] = [];
+  let inFaq = false;
+  let currentQ = "";
+  let answerLines: string[] = [];
+
+  for (const line of lines) {
+    if (/^##\s.*(FAQ|Frågor|Vanliga frågor)/i.test(line)) { inFaq = true; continue; }
+    if (inFaq && /^##\s/.test(line) && !/^###\s/.test(line)) break;
+    if (!inFaq) continue;
+    const qMatch = line.match(/^\*\*(.+?)\*\*$/) || line.match(/^###\s(.+)/) || line.match(/^[0-9]+\.\s\*\*(.+?)\*\*/);
+    if (qMatch) {
+      if (currentQ && answerLines.length) faqItems.push({ question: currentQ, answer: answerLines.join(" ").replace(/\*\*/g, "").trim() });
+      currentQ = qMatch[1].replace(/\?$/, "").trim() + "?";
+      answerLines = [];
+    } else if (currentQ && line.trim() && !line.startsWith("#")) {
+      answerLines.push(line.replace(/^\s*[-*]\s*/, "").trim());
+    }
+  }
+  if (currentQ && answerLines.length) faqItems.push({ question: currentQ, answer: answerLines.join(" ").replace(/\*\*/g, "").trim() });
+  if (!faqItems.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.slice(0, 8).map(f => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer.slice(0, 400) },
+    })),
+  };
+}
+
 interface Props {
   article?: ArticleRow | null;
   categorySlug?: string;
@@ -43,6 +77,7 @@ const ArticleSEO = ({ article, categorySlug, categoryLabel, isOverview, articleC
 
     const catSlug = getCategorySlug(article.category);
     const url = `/kunskapshubb/${catSlug}/${article.slug}`;
+    const faqSchema = extractFaqJsonLd(article.content);
 
     return {
       title: article.meta_title || article.title,
@@ -79,6 +114,7 @@ const ArticleSEO = ({ article, categorySlug, categoryLabel, isOverview, articleC
             { "@type": "ListItem", position: 4, name: article.title },
           ],
         },
+        ...(faqSchema ? [faqSchema] : []),
       ],
     };
   }, [article, categorySlug, categoryLabel, isOverview, articleCount]);

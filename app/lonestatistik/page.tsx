@@ -15,6 +15,7 @@ import SalarySubmissionForm from "@/components/salary/SalarySubmissionForm";
 import SalaryTips from "@/components/salary/SalaryTips";
 import SalarySEO from "@/components/salary/SalarySEO";
 import { useAllSalaryData } from "@/hooks/useSalary";
+import { AnswerBlock } from "@/components/AnswerBlock";
 
 const SalaryPage = () => {
   const { data, isLoading } = useAllSalaryData();
@@ -37,6 +38,7 @@ const SalaryPage = () => {
       </div>
 
       <div className="container mx-auto px-4 pb-20">
+        <AnswerBlock text="En AI-utvecklare i Sverige tjänar i genomsnitt mellan 36 000 och 115 000 SEK/månad beroende på roll, erfarenhetsnivå och stad. ML Engineers har en medianlön på 58 000 SEK i Stockholm (mid-level). AI Researchers har den högsta lönen med upp till 108 000 SEK för lead-nivå." />
         {isLoading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />

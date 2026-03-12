@@ -19,6 +19,7 @@ import { Job } from "@/types/jobs";
 import { supabase } from "@/lib/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import jobsHeroBg from "@/assets/jobs-hero-bg.jpg";
+import { AnswerBlock } from "@/components/AnswerBlock";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -174,6 +175,7 @@ const JobsPage = () => {
 
         {/* Content */}
         <div className="container mx-auto px-4 pb-20">
+          <AnswerBlock text="Sök bland AI- och ML-jobb i Sverige. Filtrera på roll (ML Engineer, Data Scientist, NLP-utvecklare m.fl.), stad, erfarenhetsnivå och remote-möjlighet. Nya tjänster läggs till dagligen från ledande svenska techbolag." />
           <div className="flex gap-8">
             {/* Desktop sidebar */}
             <div className="hidden lg:block w-72 shrink-0">

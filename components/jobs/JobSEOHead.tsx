@@ -25,11 +25,34 @@ const JobSEOHead = ({ filters, jobCount }: Props) => {
   if (city) canonicalParams.set("city", city);
   const canonical = `/jobb${canonicalParams.toString() ? `?${canonicalParams}` : ""}`;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: title,
+    description,
+    numberOfItems: jobCount,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        item: {
+          "@type": "JobPosting",
+          title: category || "AI-utvecklare",
+          description: `Lediga AI-jobb i ${cityLabel} för ${catLabel}.`,
+          hiringOrganization: { "@type": "Organization", name: "Flera arbetsgivare", sameAs: "https://utvecklare.ai/jobb" },
+          jobLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: cityLabel, addressCountry: "SE" } },
+          employmentType: "FULL_TIME",
+        },
+      },
+    ],
+  };
+
   return (
     <SEOHead
       title={title}
       description={description}
       canonical={canonical}
+      jsonLd={jsonLd}
     />
   );
 };

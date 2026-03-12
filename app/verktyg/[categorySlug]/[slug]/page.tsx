@@ -15,6 +15,7 @@ import ReviewCard from "@/components/tools/ReviewCard";
 import ReviewForm from "@/components/tools/ReviewForm";
 import { useToolDetail, useToolReviews } from "@/hooks/useTools";
 import { useAuth } from "@/hooks/useAuth";
+import { AnswerBlock } from "@/components/AnswerBlock";
 
 const pricingStyle: Record<string, { label: string; cls: string }> = {
   free: { label: "Gratis", cls: "bg-success/10 text-success border-success/20" },
@@ -162,6 +163,13 @@ const ToolDetailPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Answer block */}
+      <div className="container mx-auto px-4 pt-6">
+        <AnswerBlock
+          text={`${tool.name} är ett ${(pricingStyle[tool.pricing_model || "paid"] || pricingStyle.paid).label.toLowerCase()} ${tool.category.toLowerCase()}-verktyg${tool.avg_rating ? ` med betyget ${Number(tool.avg_rating).toFixed(1)}/5` : ""}${tool.review_count ? ` baserat på ${tool.review_count} recensioner` : ""}. ${tool.tagline || tool.description || ""}`}
+        />
+      </div>
 
       {/* Content */}
       <div className="container mx-auto px-4 pb-20">

@@ -12,6 +12,7 @@ import ToolsFilterBar from "@/components/tools/ToolsFilterBar";
 import CompareBar from "@/components/tools/CompareBar";
 import { useTools, TOOL_CATEGORIES, type ToolRow } from "@/hooks/useTools";
 import toolsHeroBg from "@/assets/tools-hero-bg.jpg";
+import { AnswerBlock } from "@/components/AnswerBlock";
 
 const ToolsPage = () => {
   const params = useParams<{ categorySlug: string }>();
@@ -117,6 +118,11 @@ const ToolsPage = () => {
             </>
           )}
         </nav>
+      </div>
+
+      {/* Answer block */}
+      <div className="container mx-auto px-4 pt-6">
+        <AnswerBlock text="De mest använda AI-verktygen bland svenska utvecklare 2026 är PyTorch och TensorFlow för ML, GitHub Copilot och Cursor för kodassistans, samt LangChain och Hugging Face för NLP/LLM-utveckling. Se recensioner och jämförelser nedan." />
       </div>
 
       {/* Category tabs */}

@@ -17,6 +17,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { useEvents, EVENT_TYPE_LABELS } from "@/hooks/useEvents";
 import { useAuth } from "@/hooks/useAuth";
 import eventsHeroBg from "@/assets/events-hero-bg.jpg";
+import { AnswerBlock } from "@/components/AnswerBlock";
 
 type ViewMode = "list" | "calendar";
 
@@ -110,6 +111,11 @@ const EventsPage = () => {
           )}
         </div>
       </section>
+
+      {/* Answer block */}
+      <div className="container mx-auto px-4 pt-6">
+        <AnswerBlock text="Hitta AI-events i Sverige — meetups, konferenser, workshops och hackathons för AI-utvecklare i Stockholm, Göteborg, Malmö och online. Se kommande events och anmäl dig direkt." />
+      </div>
 
       {/* Filters */}
       <section className="container mx-auto px-4 py-6">

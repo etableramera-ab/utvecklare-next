@@ -18,6 +18,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import communityHeroBg from "@/assets/community-hero-bg.jpg";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase/client";
+import { AnswerBlock } from "@/components/AnswerBlock";
 import {
   useForumPosts,
   useCommunityStats,
@@ -148,6 +149,7 @@ const CommunityPage = () => {
 
       {/* Main content */}
       <section id="forum-content" className="container mx-auto px-4 py-10">
+        <AnswerBlock text="Sveriges community för AI-utvecklare med diskussioner om maskininlärning, NLP, MLOps och karriär. Ställ frågor, dela projekt och nätverka med andra AI-utvecklare. Öppen för alla oavsett erfarenhetsnivå." />
         <Tabs value={tab} onValueChange={handleTabChange} className="space-y-8">
           <TabsList className="bg-muted/50">
             <TabsTrigger value="forum">Diskussioner</TabsTrigger>
