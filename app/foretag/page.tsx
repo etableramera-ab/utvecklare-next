@@ -18,6 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useAuth } from "@/hooks/useAuth";
 import companyHeroBgImg from "@/assets/company-hero-bg.jpg";
 
 const companyHeroBg = companyHeroBgImg.src;
@@ -73,6 +74,7 @@ const pricing = [
     desc: "Perfekt för att komma igång",
     features: ["1 aktiv jobbannons", "Grundläggande företagsprofil", "E-postnotifikationer", "30 dagars publicering"],
     cta: "Kom igång gratis",
+    href: "/foretag/registrera",
     featured: false,
   },
   {
@@ -82,6 +84,7 @@ const pricing = [
     desc: "För företag som rekryterar aktivt",
     features: ["5 aktiva jobbannonser", "Featured-placering i listan", "Employer branding-sida", "Kandidatfiltrering", "Prioriterad support", "Analytics & statistik"],
     cta: "Välj Professional",
+    href: "/foretag/priser",
     featured: true,
   },
   {
@@ -90,6 +93,7 @@ const pricing = [
     desc: "Skräddarsydda lösningar",
     features: ["Obegränsade jobbannonser", "Dedikerad account manager", "API-integration med ert ATS", "Custom employer branding", "Event-sponsring", "Kandidatsökning i databas"],
     cta: "Boka demo",
+    href: "#kontakt",
     featured: false,
   },
 ];
@@ -122,9 +126,12 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 /* ─── Page ─── */
 const CompanyPage = () => {
+  const { user } = useAuth();
   const [form, setForm] = useState<ContactForm>({ name: "", company: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Partial<Record<keyof ContactForm, string>>>({});
   const [submitted, setSubmitted] = useState(false);
+
+  const heroCta = user ? "/dashboard/publicera-jobb" : "/foretag/registrera";
 
   const stat1 = useCounter(10000, "+");
   const stat2 = useCounter(85, "%");
@@ -167,8 +174,8 @@ const CompanyPage = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             Nå 10 000+ kvalificerade AI-utvecklare. Publicera jobb, bygg ert employer brand och rekrytera snabbare.
           </p>
-          <Button size="lg" className="gradient-bg text-primary-foreground hover:opacity-90">
-            Kom igång — Publicera ert första jobb gratis →
+          <Button size="lg" className="gradient-bg text-primary-foreground hover:opacity-90" asChild>
+            <Link href={heroCta}>Kom igång — Publicera ert första jobb gratis →</Link>
           </Button>
         </div>
       </section>
@@ -261,8 +268,9 @@ const CompanyPage = () => {
                 <Button
                   className={`w-full ${p.featured ? "gradient-bg text-primary-foreground hover:opacity-90" : ""}`}
                   variant={p.featured ? "default" : "outline"}
+                  asChild
                 >
-                  {p.cta}
+                  <Link href={p.href}>{p.cta}</Link>
                 </Button>
               </div>
             ))}
