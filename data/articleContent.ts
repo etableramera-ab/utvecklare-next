@@ -4,7 +4,7 @@ export const ARTICLE_CONTENT: Record<string, string> = {
 
 Retrieval-Augmented Generation (RAG) kombinerar sökning i en kunskapsbas med generativ AI. Istället för att förlita sig enbart på en LLM:s interna kunskap, hämtar RAG relevant kontext från dina egna datakällor innan modellen genererar ett svar.
 
-![Neural network data flow](https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=400&fit=crop)
+![Neural network data flow](https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=400&fit=crop)
 
 ## Varför RAG?
 

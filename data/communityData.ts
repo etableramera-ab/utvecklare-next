@@ -172,7 +172,7 @@ export const MOCK_SHOWCASE_PROJECTS: ShowcaseProject[] = [
     id: "s2",
     title: "AI Bildanalys för Fastigheter",
     description: "Computer vision-verktyg som automatiskt analyserar fastighetsbilder och genererar beskrivningar.",
-    imageUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&q=80",
     authorName: "VisionViktor",
     authorAvatar: "VV",
     githubUrl: "https://github.com",

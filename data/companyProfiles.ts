@@ -43,7 +43,7 @@ export const MOCK_COMPANY_PROFILES: CompanyProfile[] = [
     slug: "volvo",
     name: "Volvo",
     logoUrl: null,
-    coverImageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=1200&q=80",
+    coverImageUrl: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80",
     industry: "Fordon & Autonomi",
     size: "10 000+",
     location: "Göteborg",

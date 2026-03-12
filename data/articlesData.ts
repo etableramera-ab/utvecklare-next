@@ -169,7 +169,7 @@ export const MOCK_ARTICLES: Article[] = [
     category: "NLP & LLM",
     category_slug: "nlp-llm",
     tags: ["RAG", "LLM", "LangChain", "Python"],
-    hero_image_url: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=450&fit=crop",
+    hero_image_url: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=450&fit=crop",
     author_name: "Anna Lindgren",
     author_avatar_url: null,
     author_bio: "AI Engineer på Spotify",
