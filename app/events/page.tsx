@@ -282,7 +282,10 @@ const EventsPage = () => {
               </div>
             </div>
 
-            <AdBanner placement="sidebar" page="events" />
+            <Link href="/foretag" className="block p-4 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+                  <p className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Din annons här</p>
+                  <p className="text-[10px] text-muted-foreground/60 mt-0.5">Annonsera på utvecklare.ai →</p>
+                </Link>
           </aside>
         </div>
       </section>

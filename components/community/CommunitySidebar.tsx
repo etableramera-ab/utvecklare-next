@@ -1,17 +1,29 @@
 'use client'
-import { Trophy, MessageCircle, Plus, ChevronDown } from "lucide-react";
+import { Trophy, MessageCircle, Plus, ChevronDown, Flame, Brain, Languages, Eye, Settings2, Briefcase, HelpCircle, TrendingUp } from "lucide-react";
 import Link from 'next/link'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import AdBanner from "@/components/ads/AdBanner";
 import { useLeaderboard, FORUM_CATEGORIES, type ForumCategory } from "@/hooks/useCommunity";
+import type { LucideIcon } from "lucide-react";
 
 interface Props {
   activeCategory: ForumCategory;
   onCategoryChange: (cat: ForumCategory) => void;
   showNewPost?: boolean;
 }
+
+const CATEGORY_ICONS: Record<string, { icon: LucideIcon; label: string }> = {
+  alla:            { icon: Flame,          label: "Alla" },
+  allmant:         { icon: MessageCircle,  label: "Allmänt" },
+  maskininlarning: { icon: Brain,          label: "Maskininlärning" },
+  "llm-nlp":       { icon: Languages,      label: "NLP & LLM" },
+  datorseende:     { icon: Eye,            label: "Datorseende" },
+  mlops:           { icon: Settings2,      label: "MLOps & Infrastruktur" },
+  "karriar-jobb":  { icon: Briefcase,      label: "Karriär & Jobb" },
+  "fragor-svar":   { icon: HelpCircle,     label: "Frågor & Svar" },
+  "nyheter-trender": { icon: TrendingUp,   label: "Nyheter & Trender" },
+};
 
 const CommunitySidebar = ({ activeCategory, onCategoryChange, showNewPost = true }: Props) => {
   const { leaders } = useLeaderboard();
@@ -22,19 +34,25 @@ const CommunitySidebar = ({ activeCategory, onCategoryChange, showNewPost = true
       <div className="rounded-lg bg-card border border-border p-4">
         <h3 className="font-semibold text-foreground text-sm mb-3">Kategorier</h3>
         <nav className="space-y-0.5">
-          {FORUM_CATEGORIES.map(c => (
-            <button
-              key={c.slug}
-              onClick={() => onCategoryChange(c.slug as ForumCategory)}
-              className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
-                activeCategory === c.slug
-                  ? "gradient-bg text-primary-foreground font-medium"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+          {FORUM_CATEGORIES.map(c => {
+            const meta = CATEGORY_ICONS[c.slug];
+            const Icon = meta?.icon;
+            const label = meta?.label ?? c.label;
+            return (
+              <button
+                key={c.slug}
+                onClick={() => onCategoryChange(c.slug as ForumCategory)}
+                className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center gap-2.5 ${
+                  activeCategory === c.slug
+                    ? "gradient-bg text-primary-foreground font-medium"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                {Icon && <Icon className="w-3.5 h-3.5 shrink-0" />}
+                {label}
+              </button>
+            );
+          })}
         </nav>
       </div>
 
@@ -42,7 +60,7 @@ const CommunitySidebar = ({ activeCategory, onCategoryChange, showNewPost = true
       {showNewPost && (
         <Button className="w-full gradient-bg text-primary-foreground hover:opacity-90" asChild>
           <Link href="/community/nytt">
-            <Plus className="w-4 h-4 mr-1" /> Nytt inlägg
+            <Plus className="w-4 h-4 mr-1" /> Ny diskussion
           </Link>
         </Button>
       )}
@@ -112,7 +130,11 @@ const CommunitySidebar = ({ activeCategory, onCategoryChange, showNewPost = true
         </Button>
       </div>
 
-      <AdBanner placement="sidebar" page="community" />
+      {/* Ad placeholder */}
+      <Link href="/foretag" className="block p-4 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+        <p className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Din annons här</p>
+        <p className="text-[10px] text-muted-foreground/60 mt-0.5">Annonsera på utvecklare.ai →</p>
+      </Link>
     </aside>
   );
 };

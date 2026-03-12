@@ -123,7 +123,7 @@ const CommunityPage = () => {
                 <Button className="gradient-bg text-primary-foreground hover:opacity-90" asChild>
                   <Link href="/community/nytt"><Plus className="w-4 h-4 mr-1" /> Ny diskussion</Link>
                 </Button>
-                <Button variant="outline" className="border-border" asChild>
+
               </>
             ) : (
               <>
