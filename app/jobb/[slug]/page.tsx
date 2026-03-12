@@ -224,7 +224,17 @@ const JobDetailPage = () => {
               {/* Apply card */}
               <div className="p-6 rounded-lg bg-card border border-border">
                 <h3 className="font-semibold text-foreground mb-2">Intresserad?</h3>
-                {job.apply_url && job.apply_url !== "#" ? (
+                {job.is_external ? (
+                  <>
+                    <p className="text-sm text-muted-foreground mb-4">Ansökan sker direkt hos arbetsgivaren via Arbetsförmedlingen</p>
+                    <a href={job.apply_url} target="_blank" rel="noopener noreferrer">
+                      <Button className="w-full gradient-bg text-primary-foreground hover:opacity-90">
+                        Ansök hos arbetsgivaren <ExternalLink className="w-4 h-4 ml-2" />
+                      </Button>
+                    </a>
+                    <p className="text-xs text-muted-foreground mt-3">Källa: Arbetsförmedlingen / JobTech Dev</p>
+                  </>
+                ) : job.apply_url && job.apply_url !== "#" ? (
                   <>
                     <p className="text-sm text-muted-foreground mb-4">Ansök direkt hos {job.company_name}</p>
                     <a href={job.apply_url} target="_blank" rel="noopener noreferrer">

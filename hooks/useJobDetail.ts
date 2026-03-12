@@ -16,8 +16,41 @@ export const useJobDetail = () => {
   const [savedCount, setSavedCount] = useState(0);
   const [savingInProgress, setSavingInProgress] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [dbJob, setDbJob] = useState<Job | null | undefined>(undefined); // undefined=loading
 
-  const job = useMemo(() => MOCK_JOBS.find((j) => j.slug === slug), [slug]);
+  // Try Supabase if not found in mock data
+  const mockJob = useMemo(() => MOCK_JOBS.find((j) => j.slug === slug), [slug]);
+
+  useEffect(() => {
+    if (mockJob || !slug) { setDbJob(null); return; }
+    supabase
+      .from("jobs")
+      .select("*, companies(name, logo_url, slug)")
+      .eq("slug", slug)
+      .eq("is_active", true)
+      .maybeSingle()
+      .then(({ data: j }) => {
+        if (!j) { setDbJob(null); return; }
+        setDbJob({
+          id: j.id, slug: j.slug, title: j.title,
+          company_name: (j as any).companies?.name ?? (j as any).company_name_override ?? "Företag",
+          company_logo_url: (j as any).companies?.logo_url ?? (j as any).company_logo_url_override ?? null,
+          company_slug: (j as any).companies?.slug ?? null,
+          location: j.location, work_model: j.work_model as "remote" | "hybrid" | "onsite",
+          salary_min: j.salary_min, salary_max: j.salary_max,
+          tech_tags: j.tech_tags ?? [], experience_level: j.experience_level,
+          category: j.category, description: j.description,
+          full_description: j.description, requirements: [], about_company: "",
+          apply_url: (j as any).external_url ?? j.apply_url ?? "",
+          is_featured: j.is_featured, is_sponsored: j.is_sponsored,
+          is_external: (j as any).is_external ?? false,
+          created_at: j.created_at, views_count: j.views_count,
+          applications_count: j.applications_count,
+        });
+      });
+  }, [slug, mockJob]);
+
+  const job = mockJob ?? dbJob ?? null;
 
   const relatedJobs = useMemo(() => {
     if (!job) return [];

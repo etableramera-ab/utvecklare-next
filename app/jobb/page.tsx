@@ -43,8 +43,8 @@ const JobsPage = () => {
           id: j.id,
           slug: j.slug,
           title: j.title,
-          company_name: j.companies?.name ?? "Företag",
-          company_logo_url: j.companies?.logo_url ?? null,
+          company_name: j.companies?.name ?? j.company_name_override ?? "Företag",
+          company_logo_url: j.companies?.logo_url ?? j.company_logo_url_override ?? null,
           company_slug: j.companies?.slug ?? null,
           location: j.location,
           work_model: j.work_model as "remote" | "hybrid" | "onsite",
@@ -57,9 +57,10 @@ const JobsPage = () => {
           full_description: j.description,
           requirements: [],
           about_company: "",
-          apply_url: j.apply_url ?? "",
+          apply_url: j.external_url ?? j.apply_url ?? "",
           is_featured: j.is_featured,
           is_sponsored: j.is_sponsored,
+          is_external: j.is_external ?? false,
           created_at: j.created_at,
           views_count: j.views_count,
           applications_count: j.applications_count,
@@ -273,7 +274,11 @@ const JobsPage = () => {
                       if (item === "ad") {
                         return <AdBanner key={`ad-${idx}`} placement="in-feed" page="jobs" className={view === "grid" ? "md:col-span-2" : ""} />;
                       }
-                      return (
+                      return item.is_external ? (
+                        <a key={item.id} href={item.apply_url} target="_blank" rel="noopener noreferrer">
+                          <JobCard job={item} view={view} />
+                        </a>
+                      ) : (
                         <Link key={item.id} href={`/jobb/${item.slug}`}>
                           <JobCard job={item} view={view} />
                         </Link>

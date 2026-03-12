@@ -19,6 +19,7 @@ export interface Job {
   apply_url: string;
   is_featured: boolean;
   is_sponsored: boolean;
+  is_external?: boolean;
   created_at: string;
   views_count?: number;
   applications_count?: number;

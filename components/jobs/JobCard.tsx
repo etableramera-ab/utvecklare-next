@@ -1,6 +1,6 @@
 'use client'
 import { Job } from "@/types/jobs";
-import { MapPin, Heart, ExternalLink, Clock } from "lucide-react";
+import { MapPin, Heart, ExternalLink, Clock, Building2 } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { sv } from "date-fns/locale";
 import { useState } from "react";
@@ -54,6 +54,11 @@ const JobCard = ({ job, view }: Props) => {
               {isFeatured && (
                 <span className="px-2 py-0.5 text-[10px] rounded-full gradient-bg text-primary-foreground font-medium">
                   {job.is_sponsored ? "Sponsrad" : "Utvald"}
+                </span>
+              )}
+              {job.is_external && (
+                <span className="px-2 py-0.5 text-[10px] rounded-full bg-accent text-muted-foreground border border-border font-medium flex items-center gap-1">
+                  <Building2 className="w-2.5 h-2.5" /> Arb.förmedlingen
                 </span>
               )}
               <button onClick={handleSave} className="p-1.5 rounded-md hover:bg-accent transition-colors" aria-label="Spara jobb">
