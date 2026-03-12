@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/providers";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "utvecklare.ai — Sveriges plattform för AI-utvecklare",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="sv" suppressHydrationWarning>
       <body>
+        <GoogleAnalytics />
         <Providers>
           {children}
         </Providers>
