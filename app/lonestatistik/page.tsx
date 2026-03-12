@@ -48,9 +48,9 @@ const SalaryPage = () => {
             <SalaryByRoleChart data={currentYear} />
             <SalaryByCityChart data={currentYear} />
             <div className="py-4">
-              <Link href="/foretag" className="block p-5 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
-                <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">Annonsera på utvecklare.ai</p>
-                <p className="text-xs text-muted-foreground/60 mt-0.5">Nå Sveriges AI-utvecklare →</p>
+              <Link href="/foretag" className="block p-5 rounded-lg border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all text-center group">
+                <p className="text-sm font-semibold text-foreground">Annonsera på utvecklare.ai</p>
+                <p className="text-xs text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
               </Link>
             </div>
             <SalaryTrendChart data={data || []} />

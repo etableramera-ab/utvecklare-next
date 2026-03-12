@@ -420,9 +420,9 @@ const ThreadDetailPage = () => {
               </div>
             )}
 
-            <Link href="/foretag" className="block p-4 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
-                  <p className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Din annons här</p>
-                  <p className="text-[10px] text-muted-foreground/60 mt-0.5">Annonsera på utvecklare.ai →</p>
+            <Link href="/foretag" className="block p-4 rounded-lg border border-border bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all text-center group">
+                  <p className="text-xs font-semibold text-foreground">Annonsera här</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">Nå Sveriges AI-utvecklare →</p>
                 </Link>
           </aside>
         </div>
