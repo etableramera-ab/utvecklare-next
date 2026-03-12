@@ -169,9 +169,9 @@ const ContactPage = () => {
               <CardContent className="p-6 space-y-5">
                 <h3 className="font-semibold text-foreground">Kontaktuppgifter</h3>
                 {[
-                  { icon: Mail, label: "Generell", value: "hej@utvecklare.ai" },
-                  { icon: Mail, label: "Annonsering", value: "annons@utvecklare.ai" },
-                  { icon: Mail, label: "Integritet", value: "integritet@utvecklare.ai" },
+                  { icon: Mail, label: "Generell", value: "info@utvecklare.ai" },
+                  { icon: Mail, label: "Annonsering", value: "info@utvecklare.ai" },
+                  { icon: Mail, label: "Integritet", value: "info@utvecklare.ai" },
                   { icon: MapPin, label: "Adress", value: "Etablera Mera AB, Stockholm" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-3">

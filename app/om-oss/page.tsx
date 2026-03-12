@@ -132,7 +132,7 @@ const AboutPage = () => (
             Kontakta oss <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </Link>
-        <p className="text-sm text-muted-foreground">Eller mejla oss direkt: <a href="mailto:hej@utvecklare.ai" className="text-primary hover:underline">hej@utvecklare.ai</a></p>
+        <p className="text-sm text-muted-foreground">Eller mejla oss direkt: <a href="mailto:info@utvecklare.ai" className="text-primary hover:underline">info@utvecklare.ai</a></p>
       </section>
     </div>
 
