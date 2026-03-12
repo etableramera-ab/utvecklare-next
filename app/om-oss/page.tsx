@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { ChevronRight, Briefcase, BookOpen, Wrench, MessageSquare, CalendarDays, TrendingUp, Linkedin, Github, ArrowRight } from "lucide-react";
+import { ChevronRight, Briefcase, BookOpen, Wrench, MessageSquare, CalendarDays, TrendingUp, Linkedin, Instagram, ArrowRight } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -112,11 +112,11 @@ const AboutPage = () => (
                 Fullstack-utvecklare och entreprenör med passion för AI och den svenska tech-scenen. Bygger utvecklare.ai för att stärka Sveriges AI-community.
               </p>
               <div className="flex gap-3 mt-3 justify-center sm:justify-start">
-                <a href="https://www.linkedin.com/in/kimstockblom" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
+                <a href="https://www.linkedin.com/company/utvecklare-ai/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
                   <Linkedin className="w-4 h-4" />
                 </a>
-                <a href="https://github.com/kimstockblom" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
-                  <Github className="w-4 h-4" />
+                <a href="https://www.instagram.com/utvecklare.ai/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
+                  <Instagram className="w-4 h-4" />
                 </a>
               </div>
             </div>

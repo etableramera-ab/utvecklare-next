@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
 import Link from 'next/link'
-import { Github, Linkedin, Twitter, Loader2 } from "lucide-react";
+import { Instagram, Linkedin, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase/client";
@@ -43,9 +43,8 @@ const Footer = () => {
             </p>
             <div className="flex gap-3 mt-4">
               {[
-                { icon: Linkedin, href: "https://www.linkedin.com/company/utvecklare-ai", label: "LinkedIn" },
-                { icon: Github, href: "https://github.com/utvecklare-ai", label: "GitHub" },
-                { icon: Twitter, href: "https://x.com/utvecklareai", label: "X" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/utvecklare-ai/", label: "LinkedIn" },
+                { icon: Instagram, href: "https://www.instagram.com/utvecklare.ai/", label: "Instagram" },
               ].map((s) => (
                 <a key={s.label} href={s.href} aria-label={s.label} className="p-2 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/50 transition-all">
                   <s.icon className="w-4 h-4" />

@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Github, Twitter, Clock, BookOpen } from "lucide-react";
+import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Instagram, Clock, BookOpen } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase/client";
@@ -39,9 +39,8 @@ const contactSchema = z.object({
 type ContactForm = z.infer<typeof contactSchema>;
 
 const socials = [
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Github, label: "GitHub", href: "#" },
-  { icon: Twitter, label: "X / Twitter", href: "#" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/utvecklare-ai/" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/utvecklare.ai/" },
 ];
 
 const ContactPage = () => {
