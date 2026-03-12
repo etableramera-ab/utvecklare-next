@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Send, Loader2, Mail, MapPin, Globe, Linkedin, Github, Twitter, Clock, BookOpen } from "lucide-react";
+import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Github, Twitter, Clock, BookOpen } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase/client";
@@ -168,20 +168,12 @@ const ContactPage = () => {
             <Card className="glass border-border">
               <CardContent className="p-6 space-y-5">
                 <h3 className="font-semibold text-foreground">Kontaktuppgifter</h3>
-                {[
-                  { icon: Mail, label: "Generell", value: "info@utvecklare.ai" },
-                  { icon: Mail, label: "Annonsering", value: "info@utvecklare.ai" },
-                  { icon: Mail, label: "Integritet", value: "info@utvecklare.ai" },
-                  { icon: MapPin, label: "Adress", value: "Etablera Mera AB, Stockholm" },
-                ].map((item) => (
-                  <div key={item.label} className="flex items-start gap-3">
-                    <item.icon className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{item.label}</p>
-                      <p className="text-sm text-foreground">{item.value}</p>
-                    </div>
-                  </div>
-                ))}
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-primary shrink-0" />
+                  <a href="mailto:info@utvecklare.ai" className="text-sm text-foreground hover:text-primary transition-colors">
+                    info@utvecklare.ai
+                  </a>
+                </div>
               </CardContent>
             </Card>
 
@@ -209,11 +201,6 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="text-xs text-muted-foreground">
-              <p className="font-medium text-foreground text-sm mb-1">Etablera Mera AB</p>
-              <p>Organisationsnummer: XXX-XXXX</p>
-              <p>Stockholm, Sverige</p>
-            </div>
           </div>
         </div>
       </div>
