@@ -80,25 +80,25 @@ const AdminCommunity = () => {
   };
 
   const approvePost = async (id: string) => {
-    await supabase.from("forum_posts").update({ moderation_status: "approved" }).eq("id", id);
+    await supabase.from("forum_posts").update({ moderation_status: "approved" } as any).eq("id", id);
     toast({ title: "Inlägg godkänt ✅" });
     fetchData();
   };
 
   const rejectPost = async (id: string) => {
-    await supabase.from("forum_posts").update({ moderation_status: "rejected" }).eq("id", id);
+    await supabase.from("forum_posts").update({ moderation_status: "rejected" } as any).eq("id", id);
     toast({ title: "Inlägg avvisat" });
     fetchData();
   };
 
   const approveShowcase = async (id: string) => {
-    await supabase.from("showcase_projects").update({ moderation_status: "approved" }).eq("id", id);
+    await supabase.from("showcase_projects").update({ moderation_status: "approved" } as any).eq("id", id);
     toast({ title: "Projekt godkänt ✅" });
     fetchData();
   };
 
   const rejectShowcase = async (id: string) => {
-    await supabase.from("showcase_projects").update({ moderation_status: "rejected" }).eq("id", id);
+    await supabase.from("showcase_projects").update({ moderation_status: "rejected" } as any).eq("id", id);
     toast({ title: "Projekt avvisat" });
     fetchData();
   };

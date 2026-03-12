@@ -24,7 +24,7 @@ const CITIES = ["Stockholm", "Göteborg", "Malmö", "Uppsala", "Linköping"];
 
 const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
 
-
+const EventsPage = () => {
   const { events, loading } = useEvents();
   const { user } = useAuth();
   const searchParams = useSearchParams();
