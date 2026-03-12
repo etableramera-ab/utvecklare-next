@@ -53,7 +53,7 @@ const ChipMultiSelect = ({ options, selected, onChange, max }: { options: string
 const CheckboxGroup = ({ options, selected, onChange }: { options: string[]; selected: string[]; onChange: (v: string[]) => void }) => (
   <div className="space-y-1.5">
     {options.map(opt => (
-      <label key={opt} className="flex items-center gap-2 text-sm cursor-pointer group">
+      <label key={opt} onClick={() => onChange(toggleInArray(selected, opt))} className="flex items-center gap-2 text-sm cursor-pointer group">
         <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
           selected.includes(opt)
             ? "gradient-bg border-transparent"

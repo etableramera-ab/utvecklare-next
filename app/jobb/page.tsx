@@ -1,6 +1,4 @@
 'use client';
-import { Suspense } from 'react';
-
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { Search, LayoutGrid, List, Bell, SlidersHorizontal, X } from "lucide-react";
@@ -356,10 +354,4 @@ const JobsPage = () => {
   );
 };
 
-const JobsPageWithSuspense = () => (
-  <Suspense>
-    <JobsPage />
-  </Suspense>
-);
-
-export default JobsPageWithSuspense;
+export default JobsPage;
