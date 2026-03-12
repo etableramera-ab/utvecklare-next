@@ -14,7 +14,7 @@ import JobAlertModal from "@/components/jobs/JobAlertModal";
 import JobSEOHead from "@/components/jobs/JobSEOHead";
 import AdBanner from "@/components/ads/AdBanner";
 import { useJobFilters } from "@/hooks/useJobFilters";
-import { POPULAR_SEARCHES, SORT_OPTIONS } from "@/data/jobsData";
+import { POPULAR_SEARCHES, SORT_OPTIONS, CITIES } from "@/data/jobsData";
 import { Job } from "@/types/jobs";
 import { supabase } from "@/lib/supabase/client";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -83,13 +83,35 @@ const JobsPage = () => {
     }
     if (filters.categories.length) jobs = jobs.filter(j => filters.categories.includes(j.category));
     if (filters.techTags.length) jobs = jobs.filter(j => j.tech_tags.some(t => filters.techTags.includes(t)));
-    if (filters.experienceLevels.length) jobs = jobs.filter(j => filters.experienceLevels.includes(j.experience_level));
+    if (filters.experienceLevels.length) {
+      const expMap: Record<string, string> = {
+        "junior": "Junior (0–2 år)",
+        "mid": "Mid-level (2–5 år)",
+        "mid-level": "Mid-level (2–5 år)",
+        "senior": "Senior (5–10 år)",
+        "lead": "Lead/Principal (10+ år)",
+        "lead/principal": "Lead/Principal (10+ år)",
+        "principal": "Lead/Principal (10+ år)",
+      };
+      jobs = jobs.filter(j => {
+        const normalized = expMap[j.experience_level?.toLowerCase()] ?? j.experience_level;
+        return filters.experienceLevels.includes(normalized);
+      });
+    }
     if (filters.workModels.length) {
       const map: Record<string, string> = { "Remote": "remote", "Hybrid": "hybrid", "On-site": "onsite" };
       const models = filters.workModels.map(w => map[w]);
       jobs = jobs.filter(j => models.includes(j.work_model));
     }
-    if (filters.cities.length) jobs = jobs.filter(j => filters.cities.some(c => j.location.includes(c)));
+    if (filters.cities.length) {
+      const mainCities = CITIES.filter(c => c !== "Övriga Sverige");
+      jobs = jobs.filter(j =>
+        filters.cities.some(c => {
+          if (c === "Övriga Sverige") return !mainCities.some(m => j.location.includes(m));
+          return j.location.includes(c);
+        })
+      );
+    }
     jobs = jobs.filter(j => {
       if (!j.salary_min || !j.salary_max) return filters.showNoSalary;
       return j.salary_max >= filters.salaryMin && j.salary_min <= filters.salaryMax;
@@ -205,7 +227,10 @@ const JobsPage = () => {
                   </div>
                 </div>
 
-                <AdBanner placement="sidebar" page="jobs" />
+                <Link href="/foretag" className="block p-4 rounded-lg border border-dashed border-border hover:border-primary/50 transition-colors text-center group">
+                  <p className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Din annons här</p>
+                  <p className="text-[10px] text-muted-foreground/60 mt-0.5">Annonsera på utvecklare.ai →</p>
+                </Link>
               </div>
             </div>
 
