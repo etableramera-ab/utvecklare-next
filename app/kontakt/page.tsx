@@ -30,10 +30,10 @@ const subjects = [
 ];
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Namn krävs").max(100),
-  email: z.string().trim().email("Ogiltig e-post").max(255),
+  name: z.string().trim().min(1, "Namn krävs").max(100, "Max 100 tecken"),
+  email: z.string().trim().email("Ogiltig e-postadress").max(255, "Max 255 tecken"),
   subject: z.string().min(1, "Välj ett ämne"),
-  message: z.string().trim().min(20, "Minst 20 tecken").max(2000),
+  message: z.string().trim().min(5, "Minst 5 tecken").max(2000, "Max 2000 tecken"),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
