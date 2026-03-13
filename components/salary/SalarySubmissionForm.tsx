@@ -13,11 +13,11 @@ import { Loader2, Send, CheckCircle2, Lock } from "lucide-react";
 import { ROLES, LEVELS, LEVEL_LABELS, CITIES } from "@/hooks/useSalary";
 
 const schema = z.object({
-  role: z.string().min(1),
-  experience_level: z.string().min(1),
-  experience_years: z.number().min(0).max(40),
-  city: z.string().min(1),
-  monthly_salary: z.number().min(20000).max(200000),
+  role: z.string().min(1, "Välj en roll"),
+  experience_level: z.string().min(1, "Välj erfarenhetsnivå"),
+  experience_years: z.number({ error: "Ange antal år" }).min(0, "Antal år kan inte vara negativt").max(40, "Max 40 år"),
+  city: z.string().min(1, "Välj en stad"),
+  monthly_salary: z.number({ error: "Ange din månadslön" }).min(20000, "Lön måste vara minst 20 000 SEK").max(200000, "Lön kan vara max 200 000 SEK"),
   includes_bonus: z.boolean(),
   bonus_amount: z.number().optional(),
   company_size: z.string().optional(),
@@ -31,6 +31,7 @@ const SalarySubmissionForm = () => {
   const { toast } = useToast();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [hasAttempted, setHasAttempted] = useState(false);
   const [form, setForm] = useState({
     role: "", experience_level: "", experience_years: "", city: "",
     monthly_salary: "", includes_bonus: false, bonus_amount: "",
@@ -40,11 +41,12 @@ const SalarySubmissionForm = () => {
 
   const set = (k: string, v: any) => {
     setForm((p) => ({ ...p, [k]: v }));
-    setErrors((p) => ({ ...p, [k]: "" }));
+    if (hasAttempted) setErrors((p) => ({ ...p, [k]: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setHasAttempted(true);
     const parsed = schema.safeParse({
       ...form,
       experience_years: parseInt(form.experience_years) || 0,
@@ -85,9 +87,9 @@ const SalarySubmissionForm = () => {
       <section id="submit-salary">
         <div className="bg-card border border-primary/30 rounded-xl p-8 md:p-12 text-center">
           <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-foreground mb-2">Tack för ditt bidrag! 🙏</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">Tack för ditt bidrag!</h3>
           <p className="text-muted-foreground max-w-md mx-auto">
-            Dina data är helt anonyma och hjälper tusentals AI-utvecklare att förhandla bättre löner.
+            Din data är helt anonym och hjälper tusentals AI-utvecklare att förhandla bättre löner.
           </p>
           <p className="text-sm text-muted-foreground mt-4">
             Vill du se hur din lön står sig? Scrolla upp till lönejämföraren.
@@ -101,7 +103,7 @@ const SalarySubmissionForm = () => {
     <div>
       <Label>{label}{required && " *"}</Label>
       {children}
-      {errors[name] && <p className="text-xs text-destructive mt-1">{errors[name]}</p>}
+      {hasAttempted && errors[name] && <p className="text-xs text-destructive mt-1">{errors[name]}</p>}
     </div>
   );
 

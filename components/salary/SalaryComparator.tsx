@@ -15,6 +15,8 @@ const SalaryComparator = ({ data }: Props) => {
   const [level, setLevel] = useState("");
   const [city, setCity] = useState("");
   const [salary, setSalary] = useState("");
+  const [error, setError] = useState("");
+  const [fallbackNote, setFallbackNote] = useState("");
   const [result, setResult] = useState<null | {
     median: number;
     p25: number;
@@ -26,18 +28,41 @@ const SalaryComparator = ({ data }: Props) => {
   }>(null);
 
   const compare = () => {
+    setError("");
+    setFallbackNote("");
     const s = parseInt(salary);
-    if (!role || !level || !city || !s) return;
+    if (!role || !level || !city || !s) {
+      setError("Fyll i alla fält för att jämföra");
+      return;
+    }
+    if (s < 10000 || s > 300000) {
+      setError("Ange en rimlig månadslön (10 000 – 300 000 SEK)");
+      return;
+    }
     const match = data.find(
       (r) => r.role === role && r.experience_level === level && r.city === city && r.year === 2026
     );
     if (!match) {
       // Fallback: use same role+level across all cities
       const fallback = data.filter((r) => r.role === role && r.experience_level === level && r.year === 2026);
-      if (!fallback.length) return;
+      if (!fallback.length) {
+        // Second fallback: just role across all levels/cities
+        const roleFallback = data.filter((r) => r.role === role && r.year === 2026);
+        if (!roleFallback.length) {
+          setError("Tyvärr saknas lönedata för denna kombination. Prova en annan roll.");
+          return;
+        }
+        const avg = Math.round(roleFallback.reduce((a, b) => a + b.salary_median, 0) / roleFallback.length);
+        const p25 = Math.round(roleFallback.reduce((a, b) => a + (b.salary_p25 || b.salary_min), 0) / roleFallback.length);
+        const p75 = Math.round(roleFallback.reduce((a, b) => a + (b.salary_p75 || b.salary_max), 0) / roleFallback.length);
+        setFallbackNote(`Visar rikssnitt för ${role} (alla nivåer) — exakt match saknas`);
+        computeResult(s, avg, p25, p75);
+        return;
+      }
       const avg = Math.round(fallback.reduce((a, b) => a + b.salary_median, 0) / fallback.length);
       const p25 = Math.round(fallback.reduce((a, b) => a + (b.salary_p25 || b.salary_min), 0) / fallback.length);
       const p75 = Math.round(fallback.reduce((a, b) => a + (b.salary_p75 || b.salary_max), 0) / fallback.length);
+      setFallbackNote(`Visar rikssnitt för ${role} (${LEVEL_LABELS[level]}) — data saknas för ${city}`);
       computeResult(s, avg, p25, p75);
       return;
     }
@@ -112,8 +137,16 @@ const SalaryComparator = ({ data }: Props) => {
 
         {/* Result */}
         <div className="bg-card border border-border rounded-xl p-6 flex flex-col justify-center">
-          {result ? (
+          {error ? (
+            <div className="text-center text-muted-foreground">
+              <p className="text-lg mb-2">⚠️</p>
+              <p>{error}</p>
+            </div>
+          ) : result ? (
             <div className="space-y-6">
+              {fallbackNote && (
+                <p className="text-xs text-muted-foreground text-center bg-muted/50 rounded-lg px-3 py-2">{fallbackNote}</p>
+              )}
               {/* Gauge bar */}
               <div>
                 <div className="flex justify-between text-xs text-muted-foreground mb-2">
