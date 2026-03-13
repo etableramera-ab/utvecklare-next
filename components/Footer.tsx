@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/lib/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { affiliateLinks } from "@/lib/affiliate-links";
 
 const Footer = () => {
   const { toast } = useToast();
@@ -108,7 +109,23 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+        {/* Partners */}
+        <div className="mt-12 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+          <span>Partners:</span>
+          {[
+            { name: "Hostinger", url: affiliateLinks.hostinger },
+            { name: "HostUp", url: affiliateLinks.hostup },
+            { name: "NordPass", url: affiliateLinks.nordpass },
+            { name: "Confex", url: affiliateLinks.confex },
+          ].map((p) => (
+            <a key={p.name} href={p.url} target="_blank" rel="noopener sponsored" className="hover:text-foreground transition-colors">
+              {p.name}
+            </a>
+          ))}
+          <span className="text-[10px] text-muted-foreground/50">Affiliate</span>
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-border text-center text-sm text-muted-foreground">
           © 2026 Etablera Mera AB. Alla rättigheter förbehållna.
         </div>
       </div>

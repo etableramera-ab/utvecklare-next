@@ -10,6 +10,7 @@ import ArticleCardSupabase from "@/components/articles/ArticleCardSupabase";
 import NewsletterInlineCTA from "@/components/articles/NewsletterInlineCTA";
 import ArticleSEO from "@/components/articles/ArticleSEO";
 import { useArticles, usePopularArticles, useAllTags, ARTICLE_CATEGORIES, getCategoryLabel, getCategorySlug } from "@/hooks/useArticles";
+import { AffiliateCard } from "@/components/AffiliateCard";
 import knowledgeHeroBg from "@/assets/knowledge-hero-bg.jpg";
 
 const POPULAR_SEARCHES = ["RAG", "Fine-tuning", "MLOps", "PyTorch", "LLM", "Karriär"];
@@ -198,14 +199,7 @@ const KnowledgeHubPage = () => {
                 </div>
               </div>
 
-<Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>
-              <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
-              <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">
-                <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>
-                <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
-              </div>
-            </Link>
+<AffiliateCard partner="nordpass" />
 
               <div className="p-5 rounded-lg bg-card border border-border">
                 <Mail className="w-5 h-5 text-secondary mb-2" />

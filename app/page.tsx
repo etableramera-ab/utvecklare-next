@@ -9,6 +9,7 @@ import CommunitySection from "@/components/CommunitySection";
 import UpcomingEvents from "@/components/UpcomingEvents";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CompanyCTA from "@/components/CompanyCTA";
+import HomePartners from "@/components/HomePartners";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
@@ -61,6 +62,7 @@ const Index = () => (
       <CommunitySection />
       <NewsletterCTA />
       <CompanyCTA />
+      <HomePartners />
     </main>
     <Footer />
   </div>

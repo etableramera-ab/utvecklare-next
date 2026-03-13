@@ -13,6 +13,7 @@ import CompareBar from "@/components/tools/CompareBar";
 import { useTools, TOOL_CATEGORIES, type ToolRow } from "@/hooks/useTools";
 import toolsHeroBg from "@/assets/tools-hero-bg.jpg";
 import { AnswerBlock } from "@/components/AnswerBlock";
+import { AffiliateGrid } from "@/components/AffiliateCard";
 
 const ToolsPage = () => {
   const params = useParams<{ categorySlug: string }>();
@@ -230,6 +231,11 @@ const ToolsPage = () => {
             <p className="text-muted-foreground">Prova ett annat sökord eller kategori.</p>
           </div>
         )}
+
+        {/* Recommended services */}
+        <div className="mt-12 mb-8">
+          <AffiliateGrid partners={['hostinger', 'hostup', 'nordpass', 'temblit']} />
+        </div>
 
         {/* Affiliate disclaimer */}
         <p className="text-xs text-muted-foreground text-center mt-12">

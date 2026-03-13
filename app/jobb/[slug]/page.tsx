@@ -14,6 +14,7 @@ import JobDetailSEO from "@/components/jobs/JobDetailSEO";
 import JobShareDropdown from "@/components/jobs/JobShareDropdown";
 import JobApplicationForm from "@/components/jobs/JobApplicationForm";
 import { useJobDetail } from "@/hooks/useJobDetail";
+import { AffiliateCard } from "@/components/AffiliateCard";
 import jobsHeroBg from "@/assets/jobs-hero-bg.jpg";
 
 const workModelLabel: Record<string, string> = {
@@ -283,14 +284,7 @@ const JobDetailPage = () => {
               </div>
 
               {/* Ad */}
-              <Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>
-                <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
-                <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">
-                  <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>
-                  <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
-                </div>
-              </Link>
+              <AffiliateCard partner="hostup" />
 
               {/* Related jobs sidebar */}
               {relatedJobs.length > 0 && (

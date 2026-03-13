@@ -2,9 +2,13 @@
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { AffiliateCTA } from "@/components/AffiliateCTA";
+import { affiliatePartners, type AffiliatePartner } from "@/lib/affiliate-links";
 
 interface Props {
   content: string;
+  /** Article category — used to select relevant inline affiliate CTAs */
+  category?: string;
 }
 
 function CodeBlock({ lang, code }: { lang: string; code: string }) {
@@ -36,21 +40,135 @@ function inlineFormat(text: string) {
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" class="text-primary hover:text-secondary underline transition-colors" target="_blank" rel="noopener noreferrer">$1</a>');
 }
 
-const ArticleRenderer = ({ content }: Props) => {
+/** Pick relevant affiliate CTAs based on article category */
+function getCategoryAffiliates(category?: string): { partner: AffiliatePartner; insertAfterH2: number }[] {
+  const cat = (category || "").toLowerCase();
+  if (cat.includes("mlops") || cat.includes("verktyg")) {
+    return [
+      { partner: "hostinger", insertAfterH2: 2 },
+      { partner: "hostup", insertAfterH2: 4 },
+    ];
+  }
+  if (cat.includes("nlp") || cat.includes("llm")) {
+    return [
+      { partner: "nordpass", insertAfterH2: 2 },
+      { partner: "keytive", insertAfterH2: 4 },
+    ];
+  }
+  if (cat.includes("karriär") || cat.includes("karriar")) {
+    return [
+      { partner: "confex", insertAfterH2: 2 },
+      { partner: "partna", insertAfterH2: 4 },
+    ];
+  }
+  if (cat.includes("nybörjar") || cat.includes("nyborjar")) {
+    return [
+      { partner: "hostinger", insertAfterH2: 3 },
+    ];
+  }
+  if (cat.includes("nyheter") || cat.includes("trender")) {
+    return [
+      { partner: "confex", insertAfterH2: 3 },
+      { partner: "mineko", insertAfterH2: 5 },
+    ];
+  }
+  // default
+  return [{ partner: "nordpass", insertAfterH2: 3 }];
+}
+
+const ArticleRenderer = ({ content, category }: Props) => {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let i = 0;
+  let h2Count = 0;
+
+  const affiliateCTAs = getCategoryAffiliates(category);
+  const affiliateInsertMap = new Map(affiliateCTAs.map(a => [a.insertAfterH2, a.partner]));
 
   while (i < lines.length) {
     const line = lines[i];
+
+    // Skip HTML tags (details, summary, script blocks) — pass through as raw HTML
+    if (line.trim().startsWith("<details") || line.trim().startsWith("<script")) {
+      const htmlLines: string[] = [];
+      const closingTag = line.trim().startsWith("<details") ? "</details>" : "</script>";
+      htmlLines.push(lines[i]);
+      i++;
+      while (i < lines.length && !lines[i].includes(closingTag)) {
+        htmlLines.push(lines[i]);
+        i++;
+      }
+      if (i < lines.length) { htmlLines.push(lines[i]); i++; }
+      elements.push(
+        <div key={`html-${i}`} className="my-4 article-html" dangerouslySetInnerHTML={{ __html: htmlLines.join("\n") }} />
+      );
+      continue;
+    }
+
+    // Tables (markdown)
+    if (line.trim().startsWith("|") && line.trim().endsWith("|")) {
+      const tableLines: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith("|") && lines[i].trim().endsWith("|")) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      if (tableLines.length >= 2) {
+        const headerCells = tableLines[0].split("|").filter(c => c.trim()).map(c => c.trim());
+        // Skip separator row (index 1)
+        const bodyRows = tableLines.slice(2).map(row =>
+          row.split("|").filter(c => c.trim()).map(c => c.trim())
+        );
+        elements.push(
+          <div key={`tbl-${i}`} className="my-6 overflow-x-auto rounded-lg border border-border">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-muted">
+                  {headerCells.map((cell, ci) => (
+                    <th key={ci} className="px-4 py-2.5 text-left font-semibold text-foreground whitespace-nowrap" dangerouslySetInnerHTML={{ __html: inlineFormat(cell) }} />
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {bodyRows.map((row, ri) => (
+                  <tr key={ri} className="border-t border-border">
+                    {row.map((cell, ci) => (
+                      <td key={ci} className="px-4 py-2 text-muted-foreground" dangerouslySetInnerHTML={{ __html: inlineFormat(cell) }} />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+        continue;
+      }
+    }
 
     // Headings
     const h2 = line.match(/^## (.+)/);
     const h3 = line.match(/^### (.+)/);
     if (h2) {
+      h2Count++;
       const id = h2[1].toLowerCase().replace(/[^\wåäö]/g, "-").replace(/-+/g, "-");
       elements.push(<h2 key={i} id={id} className="text-2xl font-bold text-foreground mt-10 mb-4 scroll-mt-24">{h2[1]}</h2>);
-      i++; continue;
+      i++;
+
+      // Insert affiliate CTA after specific H2 sections
+      const affiliatePartnerKey = affiliateInsertMap.get(h2Count);
+      if (affiliatePartnerKey) {
+        const info = affiliatePartners[affiliatePartnerKey];
+        elements.push(
+          <AffiliateCTA
+            key={`aff-${h2Count}`}
+            partner={info.name}
+            description={info.description}
+            ctaText={info.ctaText}
+            url={info.url}
+            icon={info.icon}
+          />
+        );
+      }
+      continue;
     }
     if (h3) {
       const id = h3[1].toLowerCase().replace(/[^\wåäö]/g, "-").replace(/-+/g, "-");

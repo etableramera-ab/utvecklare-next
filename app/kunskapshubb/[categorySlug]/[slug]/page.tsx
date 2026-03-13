@@ -21,6 +21,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import type { ArticleRow } from "@/hooks/useArticles";
+import { AffiliateCard } from "@/components/AffiliateCard";
 
 interface TocItem { id: string; text: string; level: number; }
 
@@ -226,7 +227,7 @@ const ArticleDetailPage = () => {
         <div className="flex gap-10 items-start">
           {/* Article body */}
           <div className="flex-1 min-w-0 max-w-[720px] mx-auto lg:mx-0 article-body" ref={contentRef}>
-            <ArticleRenderer content={article.content || ""} />
+            <ArticleRenderer content={article.content || ""} category={article.category} />
 
             {/* Related jobs */}
             <RelatedJobs tags={article.tags || []} category={article.category} />
@@ -286,16 +287,9 @@ const ArticleDetailPage = () => {
               </div>
             </div>
 
-            {/* Article-bottom CTA */}
+            {/* Article-bottom affiliate CTA */}
             <div className="mb-10">
-<Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group h-[200px]">
-                <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-                <div className="absolute inset-0 flex flex-col justify-center px-8">
-                  <p className="text-lg font-bold text-white">Annonsera på utvecklare.ai</p>
-                  <p className="text-sm text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
-                </div>
-              </Link>
+              <AffiliateCard partner="hostinger" variant="horizontal" />
             </div>
 
             {/* Newsletter */}
@@ -344,15 +338,8 @@ const ArticleDetailPage = () => {
               {/* Related tools */}
               <RelatedTools tags={article.tags || []} toolName={article.title} />
 
-              {/* Ad */}
-<Link href="/foretag" className="block relative rounded-lg overflow-hidden border border-border group" style={{ minHeight: "200px" }}>
-              <img src="https://images.unsplash.com/photo-1531746790095-e5906b947fb1?w=400&q=80" alt="" className="absolute inset-0 w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
-              <div className="absolute inset-0 flex flex-col items-center justify-end p-5 text-center">
-                <p className="text-sm font-bold text-white drop-shadow">Annonsera här</p>
-                <p className="text-xs text-white/80 mt-1">Nå Sveriges AI-utvecklare →</p>
-              </div>
-            </Link>
+              {/* Affiliate ad */}
+              <AffiliateCard partner="nordpass" />
 
               {/* Popular */}
               {relatedArticles.length > 0 && (
