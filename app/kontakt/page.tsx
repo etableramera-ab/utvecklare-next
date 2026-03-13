@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Instagram, Clock, BookOpen } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { z } from "zod";
-import { supabase } from "@/lib/supabase/client";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -73,15 +73,19 @@ const ContactPage = () => {
     }
     setErrors({});
     setSubmitting(true);
-    const { error } = await supabase.from("contact_messages").insert({
-      name: form.name, email: form.email, subject: form.subject, message: form.message,
-    });
-    setSubmitting(false);
-    if (error) {
-      toast({ title: "Kunde inte skicka", description: error.message, variant: "destructive" });
-    } else {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.name, email: form.email, subject: form.subject, message: form.message }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Okänt fel");
       setSent(true);
+    } catch (err: any) {
+      toast({ title: "Kunde inte skicka", description: err.message, variant: "destructive" });
     }
+    setSubmitting(false);
   };
 
   return (
