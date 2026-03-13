@@ -94,6 +94,8 @@ const JobsPage = () => {
         "principal": "Lead/Principal (10+ år)",
       };
       jobs = jobs.filter(j => {
+        // External jobs with unknown experience level always pass the filter
+        if (j.is_external && (!j.experience_level || j.experience_level === 'Ej angivet')) return true;
         const normalized = expMap[j.experience_level?.toLowerCase()] ?? j.experience_level;
         return filters.experienceLevels.includes(normalized);
       });

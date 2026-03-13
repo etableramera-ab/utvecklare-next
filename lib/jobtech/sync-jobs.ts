@@ -65,6 +65,29 @@ function categorizeJob(headline: string, occupation: string, description: string
   return 'AI-utvecklare';
 }
 
+function inferExperienceLevel(headline: string, description: string): string {
+  const text = `${headline} ${description}`.toLowerCase();
+
+  // Lead/Principal signals
+  if (/\b(lead|principal|head of|chef|director|vp |vice president|cto|architec)/i.test(text)) {
+    return 'Lead/Principal (10+ år)';
+  }
+  // Senior signals
+  if (/\b(senior|sr\.|erfaren|10\+?\s*år|8\+?\s*år|7\+?\s*år|6\+?\s*år|5\+?\s*år)/i.test(text)) {
+    return 'Senior (5–10 år)';
+  }
+  // Junior signals
+  if (/\b(junior|jr\.|trainee|intern|praktik|nyexaminerad|entry.level|0.2\s*år|1.2\s*år)/i.test(text)) {
+    return 'Junior (0–2 år)';
+  }
+  // Mid-level signals (explicit mentions or 2-5 years)
+  if (/\b(mid.level|mellannivå|2.5\s*år|3.5\s*år|3\+?\s*år|4\+?\s*år|2\+?\s*år)/i.test(text)) {
+    return 'Mid-level (2–5 år)';
+  }
+
+  return 'Ej angivet';
+}
+
 function mapWorkModel(hit: JobTechHit): 'remote' | 'hybrid' | 'onsite' {
   const desc = (hit.description?.text || '').toLowerCase();
   const headline = (hit.headline || '').toLowerCase();
@@ -120,7 +143,7 @@ function mapHitToJob(hit: JobTechHit) {
     category,
     location: city,
     work_model,
-    experience_level: 'Ej angivet',
+    experience_level: inferExperienceLevel(hit.headline, hit.description?.text || ''),
     tech_tags,
     salary_min: null,
     salary_max: null,
@@ -199,6 +222,7 @@ export async function syncJobsFromJobTech(): Promise<SyncResult> {
           category: job.category,
           location: job.location,
           work_model: job.work_model,
+          experience_level: job.experience_level,
           tech_tags: job.tech_tags,
           apply_url: job.apply_url,
           external_url: job.external_url,
