@@ -81,7 +81,7 @@ const AdminCommunity = () => {
 
   const approvePost = async (id: string) => {
     await supabase.from("forum_posts").update({ moderation_status: "approved" } as any).eq("id", id);
-    toast({ title: "Inlägg godkänt ✅" });
+    toast({ title: "Inlägg godkänt" });
     fetchData();
   };
 
@@ -93,7 +93,7 @@ const AdminCommunity = () => {
 
   const approveShowcase = async (id: string) => {
     await supabase.from("showcase_projects").update({ moderation_status: "approved" } as any).eq("id", id);
-    toast({ title: "Projekt godkänt ✅" });
+    toast({ title: "Projekt godkänt" });
     fetchData();
   };
 
@@ -267,9 +267,9 @@ const AdminCommunity = () => {
                         <td className="px-4 py-3 text-muted-foreground">{p.profiles?.full_name || "Anonym"}</td>
                         <td className="px-4 py-3 text-center">
                           <div className="flex gap-1 justify-center">
-                            {p.is_pinned && <Badge variant="outline" className="text-[10px]">📌</Badge>}
-                            {p.is_locked && <Badge variant="outline" className="text-[10px]">🔒</Badge>}
-                            {p.is_solved && <Badge className="bg-green-500/10 text-green-400 text-[10px]">✅</Badge>}
+                            {p.is_pinned && <Badge variant="outline" className="text-[10px]"><Pin className="w-3 h-3" /></Badge>}
+                            {p.is_locked && <Badge variant="outline" className="text-[10px]"><Lock className="w-3 h-3" /></Badge>}
+                            {p.is_solved && <Badge className="bg-green-500/10 text-green-400 text-[10px]"><Check className="w-3 h-3" /></Badge>}
                           </div>
                         </td>
                         <td className="px-4 py-3 text-center text-muted-foreground">{p.comment_count}</td>

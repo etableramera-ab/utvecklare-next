@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
-import { Star, ThumbsUp, ThumbsDown, ExternalLink, ChevronRight, Plus, Loader2 } from "lucide-react";
+import { Star, ThumbsUp, ThumbsDown, ExternalLink, ChevronRight, Plus, Loader2, Target } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { supabase } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
@@ -206,7 +206,7 @@ const ToolComparePage = () => {
                   <span className="text-muted-foreground">Grundat: <span className="text-foreground">{t.founded_year || "–"}</span></span>
                   <span className="text-muted-foreground">Företag: <span className="text-foreground">{t.company_name || "–"}</span></span>
                 </div>
-                {t.best_for && <p className="text-xs text-muted-foreground">🎯 {t.best_for}</p>}
+                {t.best_for && <p className="text-xs text-muted-foreground flex items-center gap-1"><Target className="w-3 h-3 text-primary" /> {t.best_for}</p>}
                 {t.pros && t.pros.length > 0 && (
                   <ul className="text-xs text-muted-foreground space-y-1">
                     {t.pros.slice(0, 3).map((pro, i) => <li key={i} className="flex items-start gap-1"><span className="text-success">✓</span>{pro}</li>)}

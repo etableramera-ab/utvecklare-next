@@ -30,7 +30,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Webhosting från 29 kr/mån. Perfekt för AI-projekt och webbappar.',
     ctaText: 'Testa Hostinger',
     url: affiliateLinks.hostinger,
-    icon: '🌐',
+    icon: 'globe',
     category: 'hosting',
   },
   hostup: {
@@ -38,7 +38,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Svensk webhosting med servrar i Sverige. Webbhotell, VPS och domäner.',
     ctaText: 'Testa HostUp',
     url: affiliateLinks.hostup,
-    icon: '🇸🇪',
+    icon: 'server',
     category: 'hosting',
   },
   nordpass: {
@@ -46,7 +46,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Säker lösenordshanterare för utvecklare. Dela credentials i team.',
     ctaText: 'Testa NordPass',
     url: affiliateLinks.nordpass,
-    icon: '🔐',
+    icon: 'lock',
     category: 'security',
   },
   keytive: {
@@ -54,7 +54,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Prisvärda programvarulicenser för utvecklare och företag.',
     ctaText: 'Se licenser',
     url: affiliateLinks.keytive,
-    icon: '💻',
+    icon: 'monitor',
     category: 'software',
   },
   polar55: {
@@ -62,7 +62,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Digitala tjänster och lösningar för företag.',
     ctaText: 'Läs mer',
     url: affiliateLinks.polar55,
-    icon: '🧊',
+    icon: 'snowflake',
     category: 'tools',
   },
   officepaket: {
@@ -70,7 +70,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Microsoft Office och Windows-licenser till bra priser.',
     ctaText: 'Se priser',
     url: affiliateLinks.officepaket,
-    icon: '💻',
+    icon: 'laptop',
     category: 'software',
   },
   softwarekonig: {
@@ -78,7 +78,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Köp programvarulicenser till överkomliga priser.',
     ctaText: 'Se utbud',
     url: affiliateLinks.softwarekonig,
-    icon: '💻',
+    icon: 'package',
     category: 'software',
   },
   confex: {
@@ -86,7 +86,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Kurser och utbildningar inom ledarskap och teknik.',
     ctaText: 'Se kurser',
     url: affiliateLinks.confex,
-    icon: '📚',
+    icon: 'graduation-cap',
     category: 'education',
   },
   partna: {
@@ -94,7 +94,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Jämför IT-offerter gratis. Hitta rätt leverantör för ditt projekt.',
     ctaText: 'Jämför offerter',
     url: affiliateLinks.partna,
-    icon: '🔍',
+    icon: 'search',
     category: 'business',
   },
   temblit: {
@@ -102,7 +102,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Skapa en webbplats på minuter utan teknisk kunskap.',
     ctaText: 'Testa Temblit',
     url: affiliateLinks.temblit,
-    icon: '🚀',
+    icon: 'rocket',
     category: 'tools',
   },
   mineko: {
@@ -110,7 +110,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Enkelt bokföringsprogram för frilansare och enskild firma.',
     ctaText: 'Testa Mineko',
     url: affiliateLinks.mineko,
-    icon: '📊',
+    icon: 'bar-chart-3',
     category: 'business',
   },
   addrevenue: {
@@ -118,7 +118,7 @@ export const affiliatePartners: Record<AffiliatePartner, AffiliatePartnerInfo> =
     description: 'Affiliateplattform för svenska sajter och annonsörer.',
     ctaText: 'Läs mer',
     url: affiliateLinks.addrevenue,
-    icon: '💰',
+    icon: 'coins',
     category: 'business',
   },
 };

@@ -102,7 +102,7 @@ const CheckoutPage = () => {
       reference_type: "subscription",
     });
 
-    toast({ title: "Välkommen! 🎉", description: "Din 14-dagars provperiod har börjat." });
+    toast({ title: "Välkommen!", description: "Din 14-dagars provperiod har börjat." });
     router.push("/dashboard");
   };
 

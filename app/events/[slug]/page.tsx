@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ChevronRight, Calendar, MapPin, Globe, Users, ExternalLink, Copy, Check, Github, Linkedin, Clock, Tag, Mic, Coffee, Wrench, Handshake, MessageSquare } from "lucide-react";
+import { ChevronRight, Calendar, MapPin, Globe, Users, ExternalLink, Copy, Check, Github, Linkedin, Clock, Tag, Mic, Coffee, Wrench, Handshake, MessageSquare, AlertTriangle, Coins } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -139,7 +139,7 @@ const EventDetailPage = () => {
     : null;
 
   const ctaButton = () => {
-    if (event.is_canceled) return <Badge variant="destructive" className="text-sm px-4 py-2">⚠️ Inställt</Badge>;
+    if (event.is_canceled) return <Badge variant="destructive" className="text-sm px-4 py-2">Inställt</Badge>;
     if (isPast) return <p className="text-sm text-muted-foreground">Eventet har redan ägt rum</p>;
     if (isRegistered) return (
       <div className="space-y-2">
@@ -214,7 +214,7 @@ const EventDetailPage = () => {
             )}
             <Badge variant="outline" className="border-border text-muted-foreground">{FORMAT_LABELS[event.format]}</Badge>
             <Badge variant="outline" className="border-border text-muted-foreground">{event.is_free ? "Gratis" : `${event.ticket_price} SEK`}</Badge>
-            {event.is_canceled && <Badge variant="destructive">⚠️ Inställt</Badge>}
+            {event.is_canceled && <Badge variant="destructive">Inställt</Badge>}
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">{event.title}</h1>
@@ -377,11 +377,11 @@ const EventDetailPage = () => {
               )}
 
               <div className="space-y-3 text-sm pt-2 border-t border-border">
-                <div className="flex justify-between"><span className="text-muted-foreground">📅 Datum</span><span className="text-foreground font-medium">{new Date(event.start_date).toLocaleDateString("sv-SE", { day: "numeric", month: "short" })}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">⏰ Tid</span><span className="text-foreground font-medium">{formatTime(event.start_date)}{event.end_date ? `–${formatTime(event.end_date)}` : ""}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">📍 Plats</span><span className="text-foreground font-medium text-right max-w-[160px]">{event.format === "online" ? "Online" : event.location_name || "-"}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">💰 Pris</span><span className="text-foreground font-medium">{event.is_free ? "Gratis" : `${event.ticket_price} SEK`}</span></div>
-                <div className="flex justify-between"><span className="text-muted-foreground">🏷️ Typ</span><span className="text-foreground font-medium">{EVENT_TYPE_LABELS[event.event_type || ""] || "-"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-primary" /> Datum</span><span className="text-foreground font-medium">{new Date(event.start_date).toLocaleDateString("sv-SE", { day: "numeric", month: "short" })}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-primary" /> Tid</span><span className="text-foreground font-medium">{formatTime(event.start_date)}{event.end_date ? `–${formatTime(event.end_date)}` : ""}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-primary" /> Plats</span><span className="text-foreground font-medium text-right max-w-[160px]">{event.format === "online" ? "Online" : event.location_name || "-"}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground flex items-center gap-1.5"><Coins className="w-3.5 h-3.5 text-primary" /> Pris</span><span className="text-foreground font-medium">{event.is_free ? "Gratis" : `${event.ticket_price} SEK`}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground flex items-center gap-1.5"><Tag className="w-3.5 h-3.5 text-primary" /> Typ</span><span className="text-foreground font-medium">{EVENT_TYPE_LABELS[event.event_type || ""] || "-"}</span></div>
               </div>
 
               {event.tags && event.tags.length > 0 && (

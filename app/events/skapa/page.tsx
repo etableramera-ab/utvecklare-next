@@ -120,7 +120,7 @@ const CreateEventPage = () => {
     if (error) {
       toast({ title: "Kunde inte skapa event", description: error.message, variant: "destructive" });
     } else {
-      toast({ title: "Event skapat! 🎉" });
+      toast({ title: "Event skapat!" });
       router.push(`/events/${slug}`);
     }
     setSubmitting(false);

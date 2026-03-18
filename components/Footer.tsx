@@ -24,7 +24,7 @@ const Footer = () => {
     } else if (error) {
       toast({ title: "Kunde inte registrera", description: error.message, variant: "destructive" });
     } else {
-      toast({ title: "Tack! 🎉", description: "Du är nu prenumerant på vårt nyhetsbrev." });
+      toast({ title: "Tack!", description: "Du är nu prenumerant på vårt nyhetsbrev." });
       setEmail("");
     }
   };
@@ -86,6 +86,13 @@ const Footer = () => {
               <li><Link href="/integritetspolicy" className="hover:text-foreground transition-colors">Integritetspolicy</Link></li>
               <li><Link href="/villkor" className="hover:text-foreground transition-colors">Användarvillkor</Link></li>
               <li><Link href="/cookies" className="hover:text-foreground transition-colors">Cookiepolicy</Link></li>
+            </ul>
+
+            <h4 className="font-semibold text-foreground mb-4 text-sm mt-8">Fler resurser</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href="https://cybersakerhet.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Cybersäkerhet.ai — IT-säkerhet</a></li>
+              <li><a href="https://startaenskildfirma.se" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">StartaEnskildFirma.se — Starta eget</a></li>
+              <li><a href="https://redovisning.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Redovisning.ai — Hitta redovisningsbyrå</a></li>
             </ul>
           </div>
 

@@ -22,6 +22,7 @@ import { supabase } from "@/lib/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import type { ArticleRow } from "@/hooks/useArticles";
 import { AffiliateCard } from "@/components/AffiliateCard";
+import AdUnit from "@/components/AdUnit";
 
 interface TocItem { id: string; text: string; level: number; }
 
@@ -227,6 +228,7 @@ const ArticleDetailPage = () => {
         <div className="flex gap-10 items-start">
           {/* Article body */}
           <div className="flex-1 min-w-0 max-w-[720px] mx-auto lg:mx-0 article-body" ref={contentRef}>
+            <AdUnit slot="article-top" format="horizontal" className="mb-6" />
             <ArticleRenderer content={article.content || ""} category={article.category} />
 
             {/* Related jobs */}
@@ -291,6 +293,8 @@ const ArticleDetailPage = () => {
             <div className="mb-10">
               <AffiliateCard partner="hostinger" variant="horizontal" />
             </div>
+
+            <AdUnit slot="article-bottom" format="rectangle" className="mb-10" />
 
             {/* Newsletter */}
             <div className="mb-10">

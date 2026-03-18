@@ -122,7 +122,7 @@ const AdminTools = () => {
                         )}
                         <div>
                           <span className="font-medium text-foreground">{t.name}</span>
-                          {t.affiliate_link_id && <span className="ml-1.5 text-xs text-primary">💰</span>}
+                          {t.affiliate_link_id && <span className="ml-1.5 text-xs text-primary">$</span>}
                         </div>
                       </div>
                     </td>

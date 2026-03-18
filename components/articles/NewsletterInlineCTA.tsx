@@ -35,7 +35,7 @@ const NewsletterInlineCTA = ({ source = "kunskapshubb-inline", variant = "inline
   if (status === "already") {
     return (
       <div className={`rounded-lg gradient-bg p-6 lg:p-8 text-center ${variant === "compact" ? "" : "col-span-full"}`}>
-        <p className="text-primary-foreground font-medium">Du prenumererar redan! 🎉</p>
+        <p className="text-primary-foreground font-medium">Du prenumererar redan!</p>
       </div>
     );
   }

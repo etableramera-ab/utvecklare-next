@@ -4,6 +4,7 @@ import { Copy, Check } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { AffiliateCTA } from "@/components/AffiliateCTA";
 import { affiliatePartners, type AffiliatePartner } from "@/lib/affiliate-links";
+import InContentCTA from "@/components/InContentCTA";
 
 interface Props {
   content: string;
@@ -153,6 +154,11 @@ const ArticleRenderer = ({ content, category }: Props) => {
       elements.push(<h2 key={i} id={id} className="text-2xl font-bold text-foreground mt-10 mb-4 scroll-mt-24">{h2[1]}</h2>);
       i++;
 
+      // Insert InContentCTA after first H2
+      if (h2Count === 1) {
+        elements.push(<InContentCTA key="incta-1" variant="jobb" />);
+      }
+
       // Insert affiliate CTA after specific H2 sections
       const affiliatePartnerKey = affiliateInsertMap.get(h2Count);
       if (affiliatePartnerKey) {
@@ -262,6 +268,9 @@ const ArticleRenderer = ({ content, category }: Props) => {
     );
     i++;
   }
+
+  // Insert a second InContentCTA near the end (verktyg or community)
+  elements.push(<InContentCTA key="incta-end" variant={h2Count > 4 ? "verktyg" : "community"} />);
 
   return <article className="mb-12">{elements}</article>;
 };

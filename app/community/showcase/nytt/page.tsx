@@ -120,7 +120,7 @@ const CreateShowcasePage = () => {
     } else {
       await supabase.rpc("upsert_reputation", { p_user_id: user.id });
       if (isAdmin) {
-        toast({ title: "Projekt publicerat! 🎉" });
+        toast({ title: "Projekt publicerat!" });
         router.push(`/community/showcase/${slug}`);
       } else {
         toast({ title: "Projekt skickat för granskning", description: "Det publiceras när en admin har godkänt det." });

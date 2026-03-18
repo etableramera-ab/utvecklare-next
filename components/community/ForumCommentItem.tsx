@@ -111,7 +111,7 @@ const ForumCommentItem = ({ comment, replies, allComments, postUserId, postId, i
     }).eq("id", postId);
     // Update reputation for the answerer
     await supabase.rpc("upsert_reputation", { p_user_id: comment.user_id });
-    toast({ title: "Svar markerat som accepterat! ✅" });
+    toast({ title: "Svar markerat som accepterat!" });
     onRefetch();
   };
 

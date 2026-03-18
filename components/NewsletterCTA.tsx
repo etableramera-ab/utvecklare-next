@@ -33,10 +33,10 @@ const NewsletterCTA = () => {
           {status === "success" ? (
             <div className="flex items-center justify-center gap-2">
               <Check className="w-5 h-5 text-primary-foreground" />
-              <p className="text-primary-foreground font-medium">Välkommen! 🎉 Kolla din inbox.</p>
+              <p className="text-primary-foreground font-medium">Välkommen! Kolla din inbox.</p>
             </div>
           ) : status === "already" ? (
-            <p className="text-primary-foreground font-medium">Du prenumererar redan — tack! 🎉</p>
+            <p className="text-primary-foreground font-medium">Du prenumererar redan — tack!</p>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input

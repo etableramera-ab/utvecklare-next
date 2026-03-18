@@ -1,6 +1,7 @@
 'use client';
 
 import { type AffiliatePartner, affiliatePartners } from '@/lib/affiliate-links';
+import { IconFromName } from '@/lib/icon-map';
 
 interface AffiliateCardProps {
   partner: AffiliatePartner;
@@ -19,7 +20,7 @@ export function AffiliateCard({ partner, variant = 'sidebar' }: AffiliateCardPro
         rel="noopener sponsored"
         className="flex items-center gap-3 p-3 rounded-lg bg-card border border-border hover:border-primary/30 transition-all group"
       >
-        <span className="text-lg">{info.icon}</span>
+        <span className="text-primary"><IconFromName name={info.icon} className="w-4 h-4" /></span>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{info.name}</p>
           <p className="text-[11px] text-muted-foreground line-clamp-1">{info.description}</p>
@@ -33,7 +34,7 @@ export function AffiliateCard({ partner, variant = 'sidebar' }: AffiliateCardPro
     return (
       <div className="p-4 rounded-lg bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 border border-indigo-500/20">
         <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-2xl">{info.icon}</span>
+          <span className="text-primary"><IconFromName name={info.icon} className="w-6 h-6" /></span>
           <div className="flex-1 min-w-0">
             <p className="text-sm text-muted-foreground">
               <span className="font-semibold text-foreground">{info.name}</span> — {info.description}
@@ -58,7 +59,7 @@ export function AffiliateCard({ partner, variant = 'sidebar' }: AffiliateCardPro
     <div className="rounded-lg border border-border overflow-hidden bg-gradient-to-b from-indigo-500/5 to-transparent">
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xl">{info.icon}</span>
+          <span className="text-primary"><IconFromName name={info.icon} className="w-5 h-5" /></span>
           <h4 className="text-sm font-semibold text-foreground">{info.name}</h4>
         </div>
         <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{info.description}</p>

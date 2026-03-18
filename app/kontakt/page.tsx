@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 import { useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Instagram, Clock, BookOpen } from "lucide-react";
+import { ChevronRight, Send, Loader2, Mail, Globe, Linkedin, Instagram, Clock, BookOpen, Check } from "lucide-react";
 import SEOHead from "@/components/SEOHead";
 import { z } from "zod";
 
@@ -121,7 +121,7 @@ const ContactPage = () => {
             {sent ? (
               <Card className="bg-card border-border">
                 <CardContent className="p-10 text-center space-y-3">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto text-2xl">✅</div>
+                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto"><Check className="w-8 h-8 text-primary" /></div>
                   <h2 className="text-xl font-bold text-foreground">Tack för ditt meddelande!</h2>
                   <p className="text-muted-foreground">Vi svarar normalt inom 1-2 arbetsdagar.</p>
                 </CardContent>

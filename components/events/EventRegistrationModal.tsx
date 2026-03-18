@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-import { Loader2, Check, Calendar as CalendarIcon } from "lucide-react";
+import { Loader2, Check, Calendar as CalendarIcon, MapPin } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -96,8 +96,8 @@ const EventRegistrationModal = ({ event, open, onOpenChange, onRegistered }: Pro
                 : `Du är anmäld till ${event.title}!`}
             </p>
             <div className="text-xs text-muted-foreground space-y-1">
-              <p>📅 {new Date(event.start_date).toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" })}</p>
-              <p>📍 {event.location_name || "Online"}</p>
+              <p className="flex items-center gap-1"><CalendarIcon className="w-3 h-3 text-primary" /> {new Date(event.start_date).toLocaleDateString("sv-SE", { weekday: "long", day: "numeric", month: "long" })}</p>
+              <p className="flex items-center gap-1"><MapPin className="w-3 h-3 text-primary" /> {event.location_name || "Online"}</p>
             </div>
             <div className="flex gap-2 justify-center pt-2">
               <Button size="sm" variant="outline" className="border-border" asChild>

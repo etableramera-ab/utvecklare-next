@@ -71,7 +71,7 @@ export const MOCK_FORUM_POSTS: ForumPost[] = [
   },
   {
     id: "3",
-    title: "Visar: Open-source svensk NER-modell 🇸🇪",
+    title: "Visar: Open-source svensk NER-modell",
     content: "Jag har tränat en NER-modell specifikt för svenska texter. Den klarar personnummer, organisationsnummer och svenska adresser. Släpper den som open source!",
     category: "visa-projekt",
     authorName: "NLPAnna",

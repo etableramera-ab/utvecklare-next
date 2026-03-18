@@ -52,15 +52,15 @@ export type SortMode = "latest" | "popular" | "unanswered" | "solved";
 // ---------- Categories ----------
 
 export const FORUM_CATEGORIES = [
-  { label: "🔥 Alla", slug: "alla", emoji: "🔥" },
-  { label: "💬 Allmänt", slug: "allmant", emoji: "💬" },
-  { label: "🧠 Maskininlärning", slug: "maskininlarning", emoji: "🧠" },
-  { label: "🗣️ NLP & LLM", slug: "llm-nlp", emoji: "🗣️" },
-  { label: "👁️ Datorseende", slug: "datorseende", emoji: "👁️" },
-  { label: "⚙️ MLOps & Infrastruktur", slug: "mlops", emoji: "⚙️" },
-  { label: "💼 Karriär & Jobb", slug: "karriar-jobb", emoji: "💼" },
-  { label: "❓ Frågor & Svar", slug: "fragor-svar", emoji: "❓" },
-  { label: "📢 Nyheter & Trender", slug: "nyheter-trender", emoji: "📢" },
+  { label: "Alla", slug: "alla", icon: "flame" },
+  { label: "Allmänt", slug: "allmant", icon: "message-circle" },
+  { label: "Maskininlärning", slug: "maskininlarning", icon: "brain" },
+  { label: "NLP & LLM", slug: "llm-nlp", icon: "message-square" },
+  { label: "Datorseende", slug: "datorseende", icon: "eye" },
+  { label: "MLOps & Infrastruktur", slug: "mlops", icon: "settings" },
+  { label: "Karriär & Jobb", slug: "karriar-jobb", icon: "briefcase" },
+  { label: "Frågor & Svar", slug: "fragor-svar", icon: "help-circle" },
+  { label: "Nyheter & Trender", slug: "nyheter-trender", icon: "megaphone" },
 ] as const;
 
 export type ForumCategory = typeof FORUM_CATEGORIES[number]["slug"];

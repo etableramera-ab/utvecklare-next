@@ -111,7 +111,7 @@ const ThreadDetailPage = () => {
         last_activity_at: new Date().toISOString(),
       }).eq("id", post.id);
       await supabase.rpc("upsert_reputation", { p_user_id: user.id });
-      toast({ title: "Svar publicerat! 💬" });
+      toast({ title: "Svar publicerat!" });
       setNewComment("");
       refetchComments();
     }
@@ -204,7 +204,7 @@ const ThreadDetailPage = () => {
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 <Badge variant="secondary" className="text-xs">{catLabel}</Badge>
                 {post.is_solved && (
-                  <Badge className="bg-green-500/10 text-green-400 border-green-500/30 text-xs">✅ Löst</Badge>
+                  <Badge className="bg-green-500/10 text-green-400 border-green-500/30 text-xs flex items-center gap-1"><Check className="w-3 h-3" /> Löst</Badge>
                 )}
                 {isLocked && (
                   <Badge variant="outline" className="text-xs"><Lock className="w-3 h-3 mr-1" /> Låst</Badge>

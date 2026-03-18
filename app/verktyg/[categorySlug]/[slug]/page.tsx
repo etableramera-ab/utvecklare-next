@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Star, ExternalLink, ThumbsUp, ThumbsDown, Globe, Calendar, Code, Monitor, ChevronRight, Award, Loader2, Building2, MapPin, FileText } from "lucide-react";
+import { Star, ExternalLink, ThumbsUp, ThumbsDown, Globe, Calendar, Code, Monitor, ChevronRight, Award, Loader2, Building2, MapPin, FileText, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
@@ -223,7 +223,7 @@ const ToolDetailPage = () => {
             {/* Best for */}
             {tool.best_for && (
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-5">
-                <h3 className="text-base font-bold text-foreground mb-2">🎯 Bäst för</h3>
+                <h3 className="text-base font-bold text-foreground mb-2 flex items-center gap-1.5"><Target className="w-4 h-4 text-primary" /> Bäst för</h3>
                 <p className="text-sm text-muted-foreground">{tool.best_for}</p>
               </div>
             )}

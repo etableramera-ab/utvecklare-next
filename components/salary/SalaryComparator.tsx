@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo } from "react";
+import { AlertTriangle, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -139,7 +140,7 @@ const SalaryComparator = ({ data }: Props) => {
         <div className="bg-card border border-border rounded-xl p-6 flex flex-col justify-center">
           {error ? (
             <div className="text-center text-muted-foreground">
-              <p className="text-lg mb-2">⚠️</p>
+              <AlertTriangle className="w-5 h-5 text-muted-foreground mx-auto mb-2" />
               <p>{error}</p>
             </div>
           ) : result ? (
@@ -198,7 +199,7 @@ const SalaryComparator = ({ data }: Props) => {
             </div>
           ) : (
             <div className="text-center text-muted-foreground">
-              <p className="text-lg mb-2">📊</p>
+              <BarChart3 className="w-5 h-5 text-muted-foreground mx-auto mb-2" />
               <p>Fyll i dina uppgifter och klicka "Jämför" för att se hur din lön står sig</p>
             </div>
           )}

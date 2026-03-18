@@ -93,7 +93,7 @@ const CommunitySection = () => {
                 {[
                   { title: "Hur optimerar ni inference-kostnader för LLM:er i produktion?", replies: 24 },
                   { title: "Bästa approach för RAG med svenska dokument?", replies: 18 },
-                  { title: "Visar: Open-source svensk NER-modell 🇸🇪", replies: 42 },
+                  { title: "Visar: Open-source svensk NER-modell", replies: 42 },
                 ].map(p => (
                   <div key={p.title} className="p-4 rounded-lg bg-card border border-border card-hover">
                     <h4 className="font-medium text-foreground mb-2">{p.title}</h4>

@@ -20,6 +20,7 @@ import { AnswerBlock } from "@/components/AnswerBlock";
 import { AffiliateCard } from "@/components/AffiliateCard";
 import { AffiliateCTA } from "@/components/AffiliateCTA";
 import { affiliatePartners } from "@/lib/affiliate-links";
+import AdUnit from "@/components/AdUnit";
 
 const ITEMS_PER_PAGE = 20;
 
@@ -230,6 +231,7 @@ const JobsPage = () => {
                 </div>
 
 <AffiliateCard partner="hostinger" />
+                <AdUnit slot="jobs-sidebar" format="rectangle" className="mt-4" />
 
                 <AffiliateCard partner="partna" variant="compact" />
                 <AffiliateCard partner="confex" variant="compact" />
@@ -321,7 +323,7 @@ const JobsPage = () => {
                 </>
               ) : (
                 <div className="text-center py-20 px-4 rounded-lg bg-card border border-border">
-                  <div className="text-4xl mb-4">🔍</div>
+                  <div className="mb-4"><Search className="w-10 h-10 text-muted-foreground mx-auto" /></div>
                   <p className="text-lg font-medium text-foreground mb-2">Inga jobb matchade din sökning</p>
                   <p className="text-muted-foreground mb-2">Tips: Prova att bredda dina filter eller ändra sökord</p>
                   <div className="flex flex-wrap justify-center gap-3 mt-6">

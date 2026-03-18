@@ -10,6 +10,7 @@ import UpcomingEvents from "@/components/UpcomingEvents";
 import NewsletterCTA from "@/components/NewsletterCTA";
 import CompanyCTA from "@/components/CompanyCTA";
 import HomePartners from "@/components/HomePartners";
+import SocialProof from "@/components/SocialProof";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import Link from "next/link";
@@ -54,6 +55,7 @@ const Index = () => (
     <Navbar />
     <main>
       <HeroSection />
+      <SocialProof />
       <FeaturedJobs />
 
       <KnowledgeHub />

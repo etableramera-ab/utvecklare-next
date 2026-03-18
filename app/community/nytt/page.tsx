@@ -72,7 +72,7 @@ const CreatePostPage = () => {
       // Update reputation
       await supabase.rpc("upsert_reputation", { p_user_id: user.id });
       if (isAdmin) {
-        toast({ title: "Inlägg publicerat! 🎉" });
+        toast({ title: "Inlägg publicerat!" });
         router.push(`/community/${slug}`);
       } else {
         toast({ title: "Inlägg skickat för granskning", description: "Det publiceras när en admin har godkänt det." });

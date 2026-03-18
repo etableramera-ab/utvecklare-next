@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import StickyCTA from "@/components/StickyCTA";
 
 export const metadata: Metadata = {
   title: "utvecklare.ai — Sveriges plattform för AI-utvecklare",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <GoogleAnalytics />
         <Providers>
           {children}
+          <StickyCTA />
         </Providers>
       </body>
     </html>
