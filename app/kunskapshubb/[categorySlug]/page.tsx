@@ -2,12 +2,11 @@
 import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { Search, X, Mail, Eye } from "lucide-react";
+import { Search, X, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleCardSupabase from "@/components/articles/ArticleCardSupabase";
-import NewsletterInlineCTA from "@/components/articles/NewsletterInlineCTA";
 import ArticleSEO from "@/components/articles/ArticleSEO";
 import { useArticles, usePopularArticles, useAllTags, ARTICLE_CATEGORIES, getCategoryLabel, getCategorySlug } from "@/hooks/useArticles";
 import { AffiliateCard } from "@/components/AffiliateCard";
@@ -43,7 +42,6 @@ const KnowledgeHubPage = () => {
     const items: React.ReactNode[] = [];
     paginatedArticles.forEach((article, i) => {
       items.push(<ArticleCardSupabase key={article.id} article={article} />);
-      if (i === 5) items.push(<NewsletterInlineCTA key="nl-cta" source="kunskapshubb-inline" />);
 
     });
     return items;
@@ -201,12 +199,6 @@ const KnowledgeHubPage = () => {
 
 <AffiliateCard partner="keytive" />
 
-              <div className="p-5 rounded-lg bg-card border border-border">
-                <Mail className="w-5 h-5 text-secondary mb-2" />
-                <h4 className="font-semibold text-foreground text-sm mb-1">Nyhetsbrev</h4>
-                <p className="text-xs text-muted-foreground mb-3">AI-nyheter varje vecka</p>
-                <NewsletterInlineCTA source="kunskapshubb-sidebar" variant="compact" />
-              </div>
             </div>
           </div>
         </div>

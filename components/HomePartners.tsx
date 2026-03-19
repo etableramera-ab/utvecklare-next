@@ -14,7 +14,7 @@ const HomePartners = () => (
   <section className="py-10 border-t border-border">
     <div className="container mx-auto px-4">
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
-        <span className="text-xs text-muted-foreground/60 uppercase tracking-wider">Rekommenderade verktyg</span>
+        <span className="text-xs text-muted-foreground/60 uppercase tracking-wider">Utvalda partner</span>
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
           {partners.map((p) => (
             <a
@@ -30,7 +30,7 @@ const HomePartners = () => (
             </a>
           ))}
         </div>
-        <span className="text-[10px] text-muted-foreground/40">Sponsrade</span>
+        <span className="text-[10px] text-muted-foreground/40">Affiliatepartner</span>
       </div>
     </div>
   </section>

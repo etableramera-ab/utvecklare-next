@@ -1,9 +1,9 @@
-import { Briefcase, Wrench, Users } from "lucide-react";
+import { Briefcase, Wrench, RefreshCw } from "lucide-react";
 
 const items = [
-  { icon: Briefcase, label: "434+ AI-jobb" },
-  { icon: Wrench, label: "24+ verktyg granskade" },
-  { icon: Users, label: "Aktivt community" },
+  { icon: Briefcase, label: "Lediga IT-jobb via JobTech" },
+  { icon: Wrench, label: "24+ AI-verktyg granskade" },
+  { icon: RefreshCw, label: "Dagligen uppdaterat" },
 ];
 
 const SocialProof = () => (

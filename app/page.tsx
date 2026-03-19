@@ -7,7 +7,7 @@ import KnowledgeHub from "@/components/KnowledgeHub";
 import ToolsPreview from "@/components/ToolsPreview";
 import CommunitySection from "@/components/CommunitySection";
 import UpcomingEvents from "@/components/UpcomingEvents";
-import NewsletterCTA from "@/components/NewsletterCTA";
+
 import CompanyCTA from "@/components/CompanyCTA";
 import HomePartners from "@/components/HomePartners";
 import SocialProof from "@/components/SocialProof";
@@ -62,7 +62,7 @@ const Index = () => (
       <ToolsPreview />
       <UpcomingEvents />
       <CommunitySection />
-      <NewsletterCTA />
+
       <CompanyCTA />
       <HomePartners />
     </main>

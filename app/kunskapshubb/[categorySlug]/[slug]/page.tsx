@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import ArticleCardSupabase from "@/components/articles/ArticleCardSupabase";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
 import CommentSection from "@/components/articles/CommentSection";
-import NewsletterInlineCTA from "@/components/articles/NewsletterInlineCTA";
+
 import ReadingProgress from "@/components/articles/ReadingProgress";
 import RelatedJobs from "@/components/articles/RelatedJobs";
 import RelatedTools from "@/components/articles/RelatedTools";
@@ -296,10 +296,7 @@ const ArticleDetailPage = () => {
 
             <AdUnit slot="article-bottom" format="rectangle" className="mb-10" />
 
-            {/* Newsletter */}
-            <div className="mb-10">
-              <NewsletterInlineCTA source="article-bottom" variant="article-bottom" />
-            </div>
+
 
             {/* Comments */}
             <CommentSection articleId={article.id} />

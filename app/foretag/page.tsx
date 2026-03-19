@@ -1,9 +1,9 @@
 'use client'
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
-  ChevronRight, Target, Zap, Award, Building2, Send, ArrowRight,
-  Check, UserPlus, FileText, Inbox, Quote, ChevronDown,
+  ChevronRight, Target, Zap, Award, Send, ArrowRight,
+  Check, UserPlus, FileText, Inbox, ChevronDown,
 } from "lucide-react";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
@@ -23,41 +23,11 @@ import companyHeroBgImg from "@/assets/company-hero-bg.jpg";
 
 const companyHeroBg = companyHeroBgImg.src;
 
-/* ─── Animated counter hook ─── */
-function useCounter(target: number, suffix = "", duration = 2000) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const start = performance.now();
-          const step = (now: number) => {
-            const progress = Math.min((now - start) / duration, 1);
-            setCount(Math.floor(progress * target));
-            if (progress < 1) requestAnimationFrame(step);
-          };
-          requestAnimationFrame(step);
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [target, duration]);
-
-  return { ref, display: `${count.toLocaleString("sv-SE")}${suffix}` };
-}
 
 /* ─── Data ─── */
 const benefits = [
-  { icon: Target, title: "Nå rätt målgrupp", desc: "Alla våra användare är AI-utvecklare, data scientists och ML engineers — inga irrelevanta ansökningar." },
-  { icon: Zap, title: "Snabbare rekrytering", desc: "Genomsnittlig tid till första kvalificerade ansökan: 72 timmar. Jämfört med 2+ veckor på traditionella plattformar." },
+  { icon: Target, title: "Nå rätt målgrupp", desc: "Plattformen riktar sig till AI-utvecklare, data scientists och ML engineers — en relevant och kvalificerad målgrupp." },
+  { icon: Zap, title: "Snabbare rekrytering", desc: "Nå rätt kandidater snabbt. Annonsera direkt till AI- och ML-utvecklare utan irrelevanta ansökningar." },
   { icon: Award, title: "Employer branding", desc: "Visa upp ert företag med detaljerade profiler, teknikstack och företagskultur direkt till er målgrupp." },
 ];
 
@@ -98,17 +68,12 @@ const pricing = [
   },
 ];
 
-const testimonials = [
-  { quote: "Vi hittade en senior ML Engineer inom 5 dagar. Kvaliteten på kandidaterna var exceptionell jämfört med andra plattformar.", name: "Lisa Andersson", title: "VP of Engineering", company: "TechCorp AB" },
-  { quote: "utvecklare.ai har blivit vår primära kanal för AI-rekrytering. Employer branding-funktionen har stärkt vårt varumärke avsevärt.", name: "Johan Berg", title: "Head of Talent", company: "DataFlow Nordic" },
-  { quote: "Enkel process, kvalificerade sökande, och fantastisk support. Vi har rekryterat 8 AI-utvecklare via plattformen.", name: "Maria Larsson", title: "CTO", company: "AI Innovations" },
-];
 
 const faqs = [
   { q: "Hur lång tid tar det att publicera ett jobb?", a: "Du kan publicera ett jobb på under 5 minuter. Skapa ett konto, fyll i jobbdetaljer och klicka publicera. Annonsen granskas och publiceras inom 1 timme." },
   { q: "Kan vi integrera med vårt befintliga ATS?", a: "Ja, med vårt Enterprise-paket erbjuder vi API-integration med populära ATS-system som Teamtailor, Lever och Greenhouse." },
   { q: "Erbjuder ni employer branding-tjänster?", a: "Ja! Från Professional-paketet och uppåt kan ni skapa en komplett employer branding-sida med er teknikstack, kultur, förmåner och teammedlemmar." },
-  { q: "Hur säkerställer ni kvaliteten på kandidaterna?", a: "Vår plattform riktar sig exklusivt till AI- och ML-utvecklare. 85% av våra användare har 3+ års erfarenhet inom AI/ML." },
+  { q: "Hur säkerställer ni kvaliteten på kandidaterna?", a: "Vår plattform riktar sig exklusivt till AI- och ML-utvecklare, så ni når en relevant målgrupp med rätt kompetens." },
   { q: "Kan vi testa plattformen innan vi betalar?", a: "Absolut! Vår Starter-plan är helt gratis och inkluderar 1 aktiv jobbannons. Ingen kreditkortsinformation krävs." },
   { q: "Vad händer när en jobbannons löper ut?", a: "Efter 30 dagar (Starter) eller den avtalade perioden kan du enkelt förnya annonsen. Du behåller alltid tillgång till inkomna ansökningar." },
 ];
@@ -133,10 +98,7 @@ const CompanyPage = () => {
 
   const heroCta = user ? "/dashboard/publicera-jobb" : "/foretag/registrera";
 
-  const stat1 = useCounter(10000, "+");
-  const stat2 = useCounter(85, "%");
-  const stat3 = useCounter(72, "h");
-
+  
   const handleChange = (field: keyof ContactForm, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
@@ -172,10 +134,10 @@ const CompanyPage = () => {
             Hitta Sveriges bästa AI-utvecklare
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Nå 10 000+ kvalificerade AI-utvecklare. Publicera jobb, bygg ert employer brand och rekrytera snabbare.
+            Nå AI- och ML-utvecklare i Sverige. Publicera jobb, bygg ert employer brand och rekrytera snabbare.
           </p>
-          <Button size="lg" className="gradient-bg text-primary-foreground hover:opacity-90" asChild>
-            <Link href={heroCta}>Kom igång — Publicera ert första jobb gratis →</Link>
+          <Button size="lg" className="gradient-bg text-primary-foreground hover:opacity-90 w-full sm:w-auto" asChild>
+            <Link href={heroCta}>Kom igång — Publicera ert första jobb gratis</Link>
           </Button>
         </div>
       </section>
@@ -195,23 +157,6 @@ const CompanyPage = () => {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="bg-card/50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            {[
-              { ...stat1, label: "Utvecklare i nätverket" },
-              { ...stat2, label: "Senior-nivå" },
-              { ...stat3, label: "Genomsnittlig tid till första ansökan" },
-            ].map((s) => (
-              <div key={s.label} ref={s.ref}>
-                <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">{s.display}</div>
-                <p className="text-sm text-muted-foreground">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* How it works */}
       <section className="container mx-auto px-4 py-16">
@@ -284,22 +229,6 @@ const CompanyPage = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-2xl lg:text-3xl font-bold text-foreground text-center mb-12">Vad företag säger</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <div key={t.name} className="p-6 rounded-lg bg-card border border-border">
-              <Quote className="w-8 h-8 text-primary/30 mb-3" />
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4 italic">"{t.quote}"</p>
-              <div>
-                <p className="font-semibold text-foreground text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.title}, {t.company}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="bg-card/50 py-16">
