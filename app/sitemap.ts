@@ -3,6 +3,11 @@ import { supabase } from '@/lib/supabase/client'
 
 const BASE_URL = 'https://utvecklare.ai'
 
+/** Encode each path segment for valid XML URLs */
+function sitemapUrl(...segments: string[]): string {
+  return `${BASE_URL}/${segments.map(s => encodeURIComponent(s)).join('/')}`
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
@@ -30,28 +35,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ])
 
     const jobRoutes: MetadataRoute.Sitemap = (jobs ?? []).map(j => ({
-      url: `${BASE_URL}/jobb/${j.slug}`,
+      url: sitemapUrl('jobb', j.slug),
       lastModified: j.created_at ? new Date(j.created_at) : new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
     }))
 
     const articleRoutes: MetadataRoute.Sitemap = (articles ?? []).map(a => ({
-      url: `${BASE_URL}/kunskapshubb/${a.category}/${a.slug}`,
+      url: sitemapUrl('kunskapshubb', a.category, a.slug),
       lastModified: a.updated_at ? new Date(a.updated_at) : new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     }))
 
     const toolRoutes: MetadataRoute.Sitemap = (tools ?? []).map(t => ({
-      url: `${BASE_URL}/verktyg/${t.category}/${t.slug}`,
+      url: sitemapUrl('verktyg', t.category, t.slug),
       lastModified: t.updated_at ? new Date(t.updated_at) : new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
     }))
 
     const eventRoutes: MetadataRoute.Sitemap = (events ?? []).map(e => ({
-      url: `${BASE_URL}/events/${e.slug}`,
+      url: sitemapUrl('events', e.slug),
       lastModified: e.created_at ? new Date(e.created_at) : new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
