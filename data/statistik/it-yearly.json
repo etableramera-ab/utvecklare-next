@@ -1,0 +1,57 @@
+[
+  {
+    "year": 2015,
+    "total": 58145,
+    "software": 34661
+  },
+  {
+    "year": 2016,
+    "total": 59947,
+    "software": 35633
+  },
+  {
+    "year": 2017,
+    "total": 61370,
+    "software": 36538
+  },
+  {
+    "year": 2018,
+    "total": 63435,
+    "software": 37922
+  },
+  {
+    "year": 2019,
+    "total": 65497,
+    "software": 39188
+  },
+  {
+    "year": 2020,
+    "total": 67439,
+    "software": 40334
+  },
+  {
+    "year": 2021,
+    "total": 70558,
+    "software": 42162
+  },
+  {
+    "year": 2022,
+    "total": 73701,
+    "software": 44249
+  },
+  {
+    "year": 2023,
+    "total": 75686,
+    "software": 45700
+  },
+  {
+    "year": 2024,
+    "total": 77201,
+    "software": 46764
+  },
+  {
+    "year": 2025,
+    "total": 80083,
+    "software": 48616
+  }
+]

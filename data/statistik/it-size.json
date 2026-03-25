@@ -1,0 +1,47 @@
+[
+  {
+    "size": "SGR0",
+    "label": "0 anställda",
+    "count": 53660
+  },
+  {
+    "size": "SGR1",
+    "label": "1–4",
+    "count": 21372
+  },
+  {
+    "size": "SGR2",
+    "label": "5–9",
+    "count": 1990
+  },
+  {
+    "size": "SGR3",
+    "label": "10–19",
+    "count": 1384
+  },
+  {
+    "size": "SGR4",
+    "label": "20–49",
+    "count": 1028
+  },
+  {
+    "size": "SGR5",
+    "label": "50–99",
+    "count": 324
+  },
+  {
+    "size": "SGR6",
+    "label": "100–199",
+    "count": 183
+  },
+  {
+    "size": "SGR7",
+    "label": "200–499",
+    "count": 96
+  },
+  {
+    "size": "SGR8",
+    "label": "500+",
+    "count": 46
+  }
+]
