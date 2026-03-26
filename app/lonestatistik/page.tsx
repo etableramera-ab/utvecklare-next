@@ -16,6 +16,7 @@ import SalarySEO from "@/components/salary/SalarySEO";
 import { useAllSalaryData } from "@/hooks/useSalary";
 import { AnswerBlock } from "@/components/AnswerBlock";
 import { AffiliateCard } from "@/components/AffiliateCard";
+import SEOHead from "@/components/SEOHead";
 
 const SalaryPage = () => {
   const { data, isLoading } = useAllSalaryData();
@@ -24,6 +25,11 @@ const SalaryPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Lönestatistik för AI-utvecklare i Sverige"
+        description="Aktuell lönestatistik för AI-utvecklare, ML Engineers och Data Scientists i Sverige. Jämför löner per roll, stad och erfarenhetsnivå."
+        canonical="/lonestatistik"
+      />
       <SalarySEO />
       <Navbar />
       <SalaryHero totalReports={totalReports} />

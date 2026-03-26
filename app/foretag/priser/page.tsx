@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import SEOHead from "@/components/SEOHead";
 
 /* ─── Data ─── */
 const plans = [
@@ -101,6 +102,11 @@ const PricingPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Priser – Rekryteringspaket för företag"
+        description="Jämför prispaket för att rekrytera AI-utvecklare. Alla planer inkluderar 14 dagars gratis provperiod utan bindningstid."
+        canonical="/foretag/priser"
+      />
       <Navbar />
 
       {/* Hero */}

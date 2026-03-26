@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "IT-branschen i Sverige 2026 — Företag, löner & lediga jobb | utvecklare.ai",
   description:
     "Statistik om IT-branschen i Sverige: 80 000+ IT-företag, löner för utvecklare, lediga jobb. Baserat på SCB och JobTech API.",
+  alternates: { canonical: "/statistik" },
   openGraph: {
     title: "IT-branschen i Sverige 2026 — Företag, löner & lediga jobb",
     description: "80 000+ IT-företag i Sverige. Se statistik per län, storleksklass och trend sedan 2015.",

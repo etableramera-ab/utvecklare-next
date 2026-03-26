@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `IT-branschen i ${lan.name} — ${fmt(lan.latest)} företag | utvecklare.ai`,
     description: `${fmt(lan.latest)} IT-företag i ${lan.name} (${lan.yearly[lan.yearly.length - 1].year}). Trend sedan 2015, tillväxt och andel av Sverige. Källa: SCB.`,
+    alternates: { canonical: `/statistik/${slug}` },
     openGraph: {
       title: `IT-branschen i ${lan.name} — ${fmt(lan.latest)} företag`,
       description: `${fmt(lan.latest)} IT-företag i ${lan.name}. Se utvecklingen sedan 2015.`,

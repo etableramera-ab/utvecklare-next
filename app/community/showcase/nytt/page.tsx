@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import { generateSlug } from "@/hooks/useCommunity";
+import SEOHead from "@/components/SEOHead";
 
 const CATEGORIES = ["Webbapp", "CLI-verktyg", "Modell/Forskning", "Dataset", "Bibliotek/Paket", "Annat"];
 const TECH_SUGGESTIONS = ["Python", "PyTorch", "TensorFlow", "React", "Next.js", "TypeScript", "LangChain", "Hugging Face", "FastAPI", "Docker", "Kubernetes", "AWS", "OpenCV", "Stable Diffusion", "YOLO"];
@@ -132,6 +133,12 @@ const CreateShowcasePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Dela ditt projekt"
+        description="Dela ditt AI-projekt i utvecklare.ai showcase."
+        canonical="/community/showcase/nytt"
+        noindex
+      />
       <Navbar />
       <section className="pt-16">
         <div className="container mx-auto px-4 py-12 max-w-2xl">

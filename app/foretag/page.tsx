@@ -19,6 +19,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useAuth } from "@/hooks/useAuth";
+import SEOHead from "@/components/SEOHead";
 import companyHeroBgImg from "@/assets/company-hero-bg.jpg";
 
 const companyHeroBg = companyHeroBgImg.src;
@@ -121,6 +122,11 @@ const CompanyPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Företag – Rekrytera AI-utvecklare"
+        description="Nå AI- och ML-utvecklare i Sverige. Publicera jobb, bygg ert employer brand och rekrytera snabbare via utvecklare.ai."
+        canonical="/foretag"
+      />
       <Navbar />
 
       {/* Hero */}

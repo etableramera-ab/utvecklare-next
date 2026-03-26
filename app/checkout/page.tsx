@@ -11,6 +11,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import SEOHead from "@/components/SEOHead";
 
 const PLAN_INFO: Record<string, { name: string; monthly: number; yearly: number; features: string[] }> = {
   starter: {
@@ -116,6 +117,12 @@ const CheckoutPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Checkout"
+        description="Bekräfta din plan och starta din provperiod på utvecklare.ai."
+        canonical="/checkout"
+        noindex
+      />
       <Navbar />
       <section className="pt-16">
         <div className="container mx-auto px-4 py-12 max-w-lg">

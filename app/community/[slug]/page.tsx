@@ -19,6 +19,7 @@ import { useForumPost, useForumComments, useForumVote, FORUM_CATEGORIES, type Fo
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase/client";
 import { AffiliateCard } from "@/components/AffiliateCard";
+import SEOHead from "@/components/SEOHead";
 import { toast } from "@/hooks/use-toast";
 import { useEffect } from "react";
 
@@ -180,6 +181,11 @@ const ThreadDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={post.title}
+        description={post.content.substring(0, 155)}
+        canonical={`/community/${slug}`}
+      />
       <Navbar />
 
       {/* SEO */}

@@ -16,6 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/lib/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { FORUM_CATEGORIES, generateSlug } from "@/hooks/useCommunity";
+import SEOHead from "@/components/SEOHead";
 
 const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
 
@@ -86,6 +87,12 @@ const CreatePostPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Skapa nytt inlägg"
+        description="Skapa ett nytt inlägg i utvecklare.ai community."
+        canonical="/community/nytt"
+        noindex
+      />
       <Navbar />
 
       <div className="container mx-auto px-4 pt-24 pb-16 max-w-3xl">

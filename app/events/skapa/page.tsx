@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import { generateEventSlug, EVENT_TYPE_LABELS } from "@/hooks/useEvents";
+import SEOHead from "@/components/SEOHead";
 
 const CITIES = ["Stockholm", "Göteborg", "Malmö", "Uppsala", "Linköping", "Annan"];
 const TAG_SUGGESTIONS = ["AI", "ML", "NLP", "LLM", "RAG", "MLOps", "Datorseende", "Python", "PyTorch", "Nybörjare"];
@@ -128,6 +129,12 @@ const CreateEventPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Skapa nytt event"
+        description="Skapa ett nytt AI-event på utvecklare.ai."
+        canonical="/events/skapa"
+        noindex
+      />
       <Navbar />
       <section className="pt-16">
         <div className="container mx-auto px-4 py-12 max-w-2xl">

@@ -16,6 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
+import SEOHead from "@/components/SEOHead";
 
 /* ─── Schemas ─── */
 const step1Schema = z.object({
@@ -162,6 +163,12 @@ const CompanyRegisterPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Registrera företag"
+        description="Skapa ett företagskonto på utvecklare.ai och börja rekrytera AI-utvecklare."
+        canonical="/foretag/registrera"
+        noindex
+      />
       <Navbar />
 
       <section className="pt-16">

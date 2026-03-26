@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { AffiliateCard } from "@/components/AffiliateCard";
 import { toast } from "@/hooks/use-toast";
 import ArticleRenderer from "@/components/articles/ArticleRenderer";
+import SEOHead from "@/components/SEOHead";
 
 interface ShowcaseProject {
   id: string;
@@ -185,6 +186,11 @@ const ShowcaseDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title={project.title}
+        description={project.description}
+        canonical={`/community/showcase/${slug}`}
+      />
       <Navbar />
       <section className="pt-16">
         <div className="container mx-auto px-4 py-12">
