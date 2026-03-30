@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import StickyCTA from "@/components/StickyCTA";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "utvecklare.ai — Sveriges plattform för AI-utvecklare",
@@ -26,6 +27,11 @@ export default function RootLayout({
   return (
     <html lang="sv" suppressHydrationWarning>
       <body>
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9148299323154794"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <GoogleAnalytics />
         <Providers>
           {children}
