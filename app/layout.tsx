@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   title: "utvecklare.ai — Sveriges plattform för AI-utvecklare",
   description: "Hitta AI-jobb, läs artiklar, jämför verktyg och gå med i Sveriges största community för AI- och ML-utvecklare.",
   metadataBase: new URL("https://utvecklare.ai"),
-  alternates: { canonical: "./" },
   verification: { google: 'PgZbK_oY_r7pI0sZW_rLt7JzTOvfZ64hdx03q81Cus8' },
   openGraph: {
     type: "website",
