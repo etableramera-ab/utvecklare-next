@@ -6,10 +6,13 @@ import StickyCTA from "@/components/StickyCTA";
 import Script from "next/script";
 
 export const metadata: Metadata = {
+  // VIKTIGT: Sätt ALDRIG alternates.canonical här i layout.tsx!
+  // Canonical sätts per sida i respektive page.tsx.
+  // Om canonical sätts här ärvs den till 404-sidor och skapar
+  // GSC-varningen "Dubblett: Google har valt en annan kanonisk sida".
   title: "utvecklare.ai — Sveriges plattform för AI-utvecklare",
   description: "Hitta AI-jobb, läs artiklar, jämför verktyg och gå med i Sveriges största community för AI- och ML-utvecklare.",
   metadataBase: new URL("https://utvecklare.ai"),
-  alternates: { canonical: "./" },
   verification: { google: 'PgZbK_oY_r7pI0sZW_rLt7JzTOvfZ64hdx03q81Cus8' },
   openGraph: {
     type: "website",
