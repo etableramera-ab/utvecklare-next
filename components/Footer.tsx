@@ -133,7 +133,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-4 pt-4 border-t border-border text-center text-sm text-muted-foreground">
-          © 2026 Etablera Mera AB. Alla rättigheter förbehållna.
+          © 2026 Etablera Mera AB (org.nr 559444-2526). Alla rättigheter förbehållna.
         </div>
       </div>
     </footer>
