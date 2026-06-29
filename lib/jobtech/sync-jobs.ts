@@ -65,6 +65,34 @@ function categorizeJob(headline: string, occupation: string, description: string
   return 'AI-utvecklare';
 }
 
+// ── AI/ML relevance filter ──────────────────────────────────────────────
+// JobTech's free-text search matches broadly (e.g. "ML engineer" also returns
+// mechanical/electrical/production engineers). We keep a job only if its TITLE
+// contains a clear AI/ML signal — if AI is the core of the role, it's in the
+// title. Deliberately strict: better to drop a few edge cases than to dilute
+// the list with noise.
+const RELEVANCE_PATTERNS: RegExp[] = [
+  /machine[\s-]?learning/i, /maskininl[äa]rning/i,
+  /deep[\s-]?learning/i, /djupinl[äa]rning/i,
+  /\bML\b/i,            // standalone "ML" token (ML Platform Engineer, statistik/ML, AI/ML)
+  /\bMLOps\b/i,
+  /maskinintelligens/i,
+  /data\s?scien(?:tist|ce)/i,
+  /\bNLP\b/i, /natural\s+language/i, /spr[åa]kmodell/i, /language\s+model/i, /\bLLMs?\b/i,
+  /computer\s+vision/i, /datorseende/i, /bildanalys/i,
+  /\bAI[\s/-]?(?:engineer|ingenj[öo]r|utvecklare|developer|specialist|arkitekt|architect|researcher|scientist|forskare|expert|lead|team)\b/i,
+  /\bAI\b/i,            // standalone "AI" token (also matches "AI-utvecklare", "AI-arkitekt")
+  /artificial\s+intelligence/i, /artificiell\s+intelligens/i,
+  /generativ?\s?e?\s*AI/i, /\bgen[\s-]?AI\b/i,
+  /prompt\s+engineer/i,
+  /neural\s+network/i, /neuralt\s+n[äa]tverk/i,
+];
+
+export function isRelevantJob(headline: string): boolean {
+  const title = headline || '';
+  return RELEVANCE_PATTERNS.some(rx => rx.test(title));
+}
+
 function inferExperienceLevel(headline: string, description: string): string {
   const text = `${headline} ${description}`.toLowerCase();
 
@@ -202,7 +230,8 @@ export async function syncJobsFromJobTech(): Promise<SyncResult> {
     }
   }
 
-  const allHits = Array.from(seen.values());
+  // Keep only jobs whose title clearly signals an AI/ML role
+  const allHits = Array.from(seen.values()).filter(h => isRelevantJob(h.headline));
   const syncedIds = allHits.map(h => h.id);
 
   // Upsert all fetched jobs
