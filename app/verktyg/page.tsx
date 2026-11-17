@@ -1,8 +1,11 @@
 'use client';
 
 import Navbar from "@/components/Navbar";
+import { useTools } from "@/hooks/useTools";
 
 export default function VerktygPage() {
+  const { tools, loading } = useTools();
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -34,28 +37,27 @@ export default function VerktygPage() {
         </div>
 
         {/* Tools grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {[
-            { name: "LangChain", desc: "Bygg kontextika LLM-applikationer med kedjor, agenter och minne.", tags: ["LLM", "Ramverk"] },
-            { name: "Cursor", desc: "AI-driven kodredigerare byggd för snabb utveckling och reflektion.", tags: ["Kod", "AI Editor"] },
-            { name: "GitHub Copilot", desc: "Din AI-parprogrammerare direkt i VS Code och din favorit-editor.", tags: ["Kod", "Assistant"] },
-            { name: "Ollama", desc: "Kör stora modeller lokalt på din maskin. Enkelt och effektivt.", tags: ["Lokalt", "LLM"] },
-            { name: "Pinecone", desc: "Serverless vector database för att lagra, söka och rekommendera.", tags: ["Vector DB"] },
-            { name: "Weaviate", desc: "Öppen vector-sökmotor för att builda skalbara AI-applikationer.", tags: ["Vector DB"] },
-            { name: "Chroma", desc: "AI-native embeddings databas för att builda intelligenta appar.", tags: ["Embeddings"] },
-            { name: "Replit", desc: "Bygg, dela och deploya AI-applikationer direkt från molnet.", tags: ["Deployment"] },
-          ].map((tool) => (
-            <div key={tool.name} className="bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-              <h2 className="font-semibold text-slate-900">{tool.name}</h2>
-              <p className="text-sm text-slate-600 mt-2 leading-relaxed">{tool.desc}</p>
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {tool.tags.map((t) => (
-                  <span key={t} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{t}</span>
-                ))}
+        {loading ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="h-48 bg-white rounded-xl animate-pulse border border-slate-100" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {tools.slice(0, 12).map((tool) => (
+              <div key={tool.id} className="bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <h2 className="font-semibold text-slate-900">{tool.name}</h2>
+                <p className="text-sm text-slate-600 mt-2 leading-relaxed line-clamp-3">{tool.tagline || tool.description}</p>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {(tool.tags || []).slice(0, 3).map((t) => (
+                    <span key={t} className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">{t}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
