@@ -13,17 +13,36 @@ function SearchResults() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!q) {
+    if (!q.trim()) {
       setLoading(false);
       return;
     }
 
     const search = async () => {
       setLoading(true);
+      const term = `%${q.trim()}%`;
+
       const [articlesRes, jobsRes, toolsRes] = await Promise.all([
-        supabase.from("articles").select("id, title, slug, excerpt, published_at").eq("is_published", true).ilike("title", `%${q}%`).limit(10),
-        supabase.from("jobs").select("id, title, slug, location, companies(name)").eq("is_active", true).ilike("title", `%${q}%`).limit(10),
-        supabase.from("tools").select("id, name, slug, tagline").eq("is_published", true).ilike("name", `%${q}%`).limit(10),
+        supabase
+          .from("articles")
+          .select("id, title, slug, excerpt, published_at, tags")
+          .eq("is_published", true)
+          .or(`title.ilike.${term},excerpt.ilike.${term},tags.cs.{${q.trim()}}`)
+          .limit(12),
+
+        supabase
+          .from("jobs")
+          .select("id, title, slug, location, tech_tags, companies(name)")
+          .eq("is_active", true)
+          .or(`title.ilike.${term},location.ilike.${term}`)
+          .limit(12),
+
+        supabase
+          .from("tools")
+          .select("id, name, slug, tagline, description, tags")
+          .eq("is_published", true)
+          .or(`name.ilike.${term},tagline.ilike.${term},description.ilike.${term}`)
+          .limit(12),
       ]);
 
       setResults({
@@ -37,23 +56,31 @@ function SearchResults() {
     search();
   }, [q]);
 
+  const total = results.articles.length + results.jobs.length + results.tools.length;
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
         <h1 className="text-2xl font-bold text-slate-900 mb-2">Sökresultat</h1>
-        <p className="text-slate-600 mb-8">Resultat för “{q}”</p>
+        <p className="text-slate-600 mb-8">
+          {loading ? "Söker..." : `${total} resultat för “${q}”`}
+        </p>
 
         {loading ? (
-          <div>Söker...</div>
+          <div className="space-y-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="h-20 bg-white rounded-lg animate-pulse border" />
+            ))}
+          </div>
+        ) : total === 0 ? (
+          <p className="text-slate-500">Inga resultat hittades. Prova ett annat sökord.</p>
         ) : (
           <div className="space-y-10">
             {/* Articles */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Nyheter</h2>
-              {results.articles.length === 0 ? (
-                <p className="text-slate-500 text-sm">Inga nyheter hittades.</p>
-              ) : (
+            {results.articles.length > 0 && (
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Nyheter ({results.articles.length})</h2>
                 <div className="space-y-3">
                   {results.articles.map((a) => (
                     <Link key={a.id} href={`/nyheter/${a.slug}`} className="block bg-white p-4 rounded-lg border hover:shadow-sm">
@@ -62,15 +89,13 @@ function SearchResults() {
                     </Link>
                   ))}
                 </div>
-              )}
-            </section>
+              </section>
+            )}
 
             {/* Jobs */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Jobb</h2>
-              {results.jobs.length === 0 ? (
-                <p className="text-slate-500 text-sm">Inga jobb hittades.</p>
-              ) : (
+            {results.jobs.length > 0 && (
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Jobb ({results.jobs.length})</h2>
                 <div className="space-y-3">
                   {results.jobs.map((j) => (
                     <Link key={j.id} href={`/jobb/${j.slug}`} className="block bg-white p-4 rounded-lg border hover:shadow-sm">
@@ -79,25 +104,23 @@ function SearchResults() {
                     </Link>
                   ))}
                 </div>
-              )}
-            </section>
+              </section>
+            )}
 
             {/* Tools */}
-            <section>
-              <h2 className="text-lg font-semibold mb-4">Verktyg</h2>
-              {results.tools.length === 0 ? (
-                <p className="text-slate-500 text-sm">Inga verktyg hittades.</p>
-              ) : (
+            {results.tools.length > 0 && (
+              <section>
+                <h2 className="text-lg font-semibold mb-4">Verktyg ({results.tools.length})</h2>
                 <div className="space-y-3">
                   {results.tools.map((t) => (
                     <div key={t.id} className="bg-white p-4 rounded-lg border">
                       <div className="font-medium">{t.name}</div>
-                      <div className="text-sm text-slate-500 mt-1">{t.tagline}</div>
+                      <div className="text-sm text-slate-500 mt-1">{t.tagline || t.description}</div>
                     </div>
                   ))}
                 </div>
-              )}
-            </section>
+              </section>
+            )}
           </div>
         )}
       </main>
