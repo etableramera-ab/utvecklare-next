@@ -1,8 +1,46 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
+import { supabase } from "@/lib/supabase/client";
+import Link from "next/link";
+
+interface Job {
+  id: string;
+  title: string;
+  slug: string;
+  company_name: string;
+  location: string;
+  work_model: string;
+  tech_tags: string[];
+}
 
 export default function JobbPage() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase
+      .from("jobs")
+      .select("id, title, slug, location, work_model, tech_tags, companies(name)")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(12)
+      .then(({ data }) => {
+        const mapped = (data || []).map((j: any) => ({
+          id: j.id,
+          title: j.title,
+          slug: j.slug,
+          company_name: j.companies?.name || "Företag",
+          location: j.location || "",
+          work_model: j.work_model || "",
+          tech_tags: j.tech_tags || [],
+        }));
+        setJobs(mapped);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
@@ -40,27 +78,28 @@ export default function JobbPage() {
         </div>
 
         {/* Jobs grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            { title: "Senior AI/ML Engineer", company: "Algoryx AI", loc: "Stockholm • Hybrid", tags: ["Python", "PyTorch", "AWS"] },
-            { title: "Backendutvecklare – AI-plattform", company: "Mindshift Technologies", loc: "Göteborg • Hybrid", tags: ["TypeScript", "Node.js"] },
-            { title: "Fullstackutvecklare", company: "Evolutio", loc: "Malmö • Hybrid", tags: ["React", "Next.js"] },
-            { title: "MLOps Engineer", company: "Gradient Labs", loc: "Stockholm • Remote", tags: ["Docker", "Terraform"] },
-            { title: "AI Software Developer", company: "Northvolt AI", loc: "Linköping • Hybrid", tags: ["Python", "FastAPI"] },
-            { title: "Frontendutvecklare – AI Dashboard", company: "InsightFlow", loc: "Stockholm • Hybrid", tags: ["React", "Tailwind"] },
-          ].map((job) => (
-            <div key={job.title} className="bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-              <h2 className="font-medium text-slate-900">{job.title}</h2>
-              <div className="text-sm text-slate-500 mt-1">{job.company}</div>
-              <div className="text-sm text-slate-500">{job.loc}</div>
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {job.tags.map((t) => (
-                  <span key={t} className="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full">{t}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-36 bg-white rounded-xl animate-pulse border border-slate-100" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {jobs.map((job) => (
+              <Link key={job.id} href={`/jobb/${job.slug}`} className="block bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                <h2 className="font-medium text-slate-900">{job.title}</h2>
+                <div className="text-sm text-slate-500 mt-1">{job.company_name}</div>
+                <div className="text-sm text-slate-500">{job.location} • {job.work_model}</div>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {job.tech_tags.slice(0, 3).map((t) => (
+                    <span key={t} className="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full">{t}</span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
