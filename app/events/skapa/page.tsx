@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronRight, Loader2, Upload, X } from "lucide-react";
@@ -24,9 +24,16 @@ const ADMIN_USER_ID = "8e06c38b-e406-48cb-9714-963904091465";
 
 const CreateEventPage = () => {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [step, setStep] = useState(1);
   const [submitting, setSubmitting] = useState(false);
+
+  // Auth check in useEffect to avoid SSR issues
+  useEffect(() => {
+    if (!authLoading && (!user || user.id !== ADMIN_USER_ID)) {
+      router.push("/events");
+    }
+  }, [user, authLoading, router]);
 
   // Step 1
   const [title, setTitle] = useState("");
@@ -56,7 +63,17 @@ const CreateEventPage = () => {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerUrl, setOrganizerUrl] = useState("");
 
-  if (!user || user.id !== ADMIN_USER_ID) { router.push("/events"); return null; }
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user || user.id !== ADMIN_USER_ID) {
+    return null;
+  }
 
   const addTag = (tag: string) => {
     const t = tag.trim();
@@ -146,7 +163,6 @@ const CreateEventPage = () => {
 
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Skapa nytt event</h1>
 
-          {/* Steps indicator */}
           <div className="flex gap-2 mb-8">
             {[1, 2, 3].map((s) => (
               <div key={s} className={`flex-1 h-1 rounded-full ${step >= s ? "gradient-bg" : "bg-muted"}`} />
