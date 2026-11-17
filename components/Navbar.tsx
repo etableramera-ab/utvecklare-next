@@ -1,10 +1,11 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase/client";
 
 const navLinks = [
   { label: "Nyheter", href: "/nyheter" },
@@ -17,10 +18,44 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<{ articles: any[]; jobs: any[]; tools: any[] }>({ articles: [], jobs: [], tools: [] });
+  const [searching, setSearching] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
   const isActive = (href: string) => pathname.startsWith(href);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (!query.trim() || query.trim().length < 2) {
+      setSuggestions({ articles: [], jobs: [], tools: [] });
+      return;
+    }
+
+    debounceRef.current = setTimeout(async () => {
+      setSearching(true);
+      const term = `%${query.trim()}%`;
+
+      const [articlesRes, jobsRes, toolsRes] = await Promise.all([
+        supabase.from("articles").select("id, title, slug").eq("is_published", true).ilike("title", term).limit(3),
+        supabase.from("jobs").select("id, title, slug").eq("is_active", true).ilike("title", term).limit(3),
+        supabase.from("tools").select("id, name, slug").eq("is_published", true).ilike("name", term).limit(3),
+      ]);
+
+      setSuggestions({
+        articles: articlesRes.data || [],
+        jobs: jobsRes.data || [],
+        tools: toolsRes.data || [],
+      });
+      setSearching(false);
+    }, 300);
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [query]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +66,14 @@ const Navbar = () => {
       setMobileOpen(false);
     }
   };
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setQuery("");
+    setSuggestions({ articles: [], jobs: [], tools: [] });
+  };
+
+  const hasSuggestions = suggestions.articles.length + suggestions.jobs.length + suggestions.tools.length > 0;
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
@@ -116,11 +159,11 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Search modal */}
+      {/* Search modal with live suggestions */}
       {searchOpen && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-20" onClick={() => setSearchOpen(false)}>
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4" onClick={(e) => e.stopPropagation()}>
-            <form onSubmit={handleSearch} className="p-4">
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-start justify-center pt-20" onClick={closeSearch}>
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg mx-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <form onSubmit={handleSearch} className="p-4 border-b">
               <div className="flex items-center gap-2">
                 <Search className="w-5 h-5 text-slate-400" />
                 <input
@@ -131,11 +174,64 @@ const Navbar = () => {
                   placeholder="Sök nyheter, jobb, verktyg..."
                   className="flex-1 text-lg outline-none"
                 />
-                <button type="button" onClick={() => setSearchOpen(false)} className="text-slate-400 hover:text-slate-600">
+                <button type="button" onClick={closeSearch} className="text-slate-400 hover:text-slate-600">
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </form>
+
+            {(searching || hasSuggestions || query.length >= 2) && (
+              <div className="max-h-80 overflow-y-auto p-2">
+                {searching && <div className="px-3 py-2 text-sm text-slate-500">Söker...</div>}
+
+                {!searching && !hasSuggestions && query.length >= 2 && (
+                  <div className="px-3 py-2 text-sm text-slate-500">Inga snabbförslag. Tryck Enter för full sökning.</div>
+                )}
+
+                {suggestions.articles.length > 0 && (
+                  <div className="mb-2">
+                    <div className="px-3 py-1 text-xs font-medium text-slate-400 uppercase">Nyheter</div>
+                    {suggestions.articles.map((a) => (
+                      <Link
+                        key={a.id}
+                        href={`/nyheter/${a.slug}`}
+                        onClick={closeSearch}
+                        className="block px-3 py-2 text-sm hover:bg-slate-50 rounded"
+                      >
+                        {a.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {suggestions.jobs.length > 0 && (
+                  <div className="mb-2">
+                    <div className="px-3 py-1 text-xs font-medium text-slate-400 uppercase">Jobb</div>
+                    {suggestions.jobs.map((j) => (
+                      <Link
+                        key={j.id}
+                        href={`/jobb/${j.slug}`}
+                        onClick={closeSearch}
+                        className="block px-3 py-2 text-sm hover:bg-slate-50 rounded"
+                      >
+                        {j.title}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {suggestions.tools.length > 0 && (
+                  <div>
+                    <div className="px-3 py-1 text-xs font-medium text-slate-400 uppercase">Verktyg</div>
+                    {suggestions.tools.map((t) => (
+                      <div key={t.id} className="px-3 py-2 text-sm text-slate-700">
+                        {t.name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}
